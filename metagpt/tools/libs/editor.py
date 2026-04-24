@@ -113,6 +113,18 @@ class Editor(BaseModel):
     enable_auto_lint: bool = False
     working_dir: Path = DEFAULT_WORKSPACE_ROOT
 
+    @staticmethod
+    def _read_lines_with_fallback(path: Path) -> list[str]:
+        """Read text lines with UTF-8 first, then fallback for Windows legacy encodings."""
+        for encoding in ("utf-8", "gbk", "utf-8-sig"):
+            try:
+                with path.open("r", encoding=encoding) as file:
+                    return file.readlines()
+            except UnicodeDecodeError:
+                continue
+        with path.open("r", encoding="utf-8", errors="replace") as file:
+            return file.readlines()
+
     def write(self, path: str, content: str):
         """Write the whole content to a file. When used, make sure content arg contains the full content of the file."""
 
@@ -216,49 +228,48 @@ class Editor(BaseModel):
 
     def _print_window(self, file_path: Path, targeted_line: int, window: int):
         self._check_current_file(file_path)
-        with file_path.open() as file:
-            content = file.read()
+        content = "".join(self._read_lines_with_fallback(file_path))
 
-            # Ensure the content ends with a newline character
-            if not content.endswith("\n"):
-                content += "\n"
+        # Ensure the content ends with a newline character
+        if not content.endswith("\n"):
+            content += "\n"
 
-            lines = content.splitlines(True)  # Keep all line ending characters
-            total_lines = len(lines)
+        lines = content.splitlines(True)  # Keep all line ending characters
+        total_lines = len(lines)
 
-            # cover edge cases
-            self.current_line = self._clamp(targeted_line, 1, total_lines)
-            half_window = max(1, window // 2)
+        # cover edge cases
+        self.current_line = self._clamp(targeted_line, 1, total_lines)
+        half_window = max(1, window // 2)
 
-            # Ensure at least one line above and below the targeted line
-            start = max(1, self.current_line - half_window)
-            end = min(total_lines, self.current_line + half_window)
+        # Ensure at least one line above and below the targeted line
+        start = max(1, self.current_line - half_window)
+        end = min(total_lines, self.current_line + half_window)
 
-            # Adjust start and end to ensure at least one line above and below
-            if start == 1:
-                end = min(total_lines, start + window - 1)
-            if end == total_lines:
-                start = max(1, end - window + 1)
+        # Adjust start and end to ensure at least one line above and below
+        if start == 1:
+            end = min(total_lines, start + window - 1)
+        if end == total_lines:
+            start = max(1, end - window + 1)
 
-            output = ""
+        output = ""
 
-            # only display this when there's at least one line above
-            if start > 1:
-                output += f"({start - 1} more lines above)\n"
-            else:
-                output += "(this is the beginning of the file)\n"
-            for i in range(start, end + 1):
-                _new_line = f"{i:03d}|{lines[i - 1]}"
-                if not _new_line.endswith("\n"):
-                    _new_line += "\n"
-                output += _new_line
-            if end < total_lines:
-                output += f"({total_lines - end} more lines below)\n"
-            else:
-                output += "(this is the end of the file)\n"
-            output = output.rstrip()
+        # only display this when there's at least one line above
+        if start > 1:
+            output += f"({start - 1} more lines above)\n"
+        else:
+            output += "(this is the beginning of the file)\n"
+        for i in range(start, end + 1):
+            _new_line = f"{i:03d}|{lines[i - 1]}"
+            if not _new_line.endswith("\n"):
+                _new_line += "\n"
+            output += _new_line
+        if end < total_lines:
+            output += f"({total_lines - end} more lines below)\n"
+        else:
+            output += "(this is the end of the file)\n"
+        output = output.rstrip()
 
-            return output
+        return output
 
     @staticmethod
     def _cur_file_header(current_file: Path, total_lines: int) -> str:
@@ -297,8 +308,7 @@ class Editor(BaseModel):
             raise FileNotFoundError(f"File {path} not found")
 
         self.current_file = path
-        with path.open() as file:
-            total_lines = max(1, sum(1 for _ in file))
+        total_lines = max(1, len(self._read_lines_with_fallback(path)))
 
         if not isinstance(line_number, int) or line_number < 1 or line_number > total_lines:
             raise ValueError(f"Line number must be between 1 and {total_lines}")
@@ -321,8 +331,7 @@ class Editor(BaseModel):
         """
         self._check_current_file()
 
-        with self.current_file.open() as file:
-            total_lines = max(1, sum(1 for _ in file))
+        total_lines = max(1, len(self._read_lines_with_fallback(self.current_file)))
         if not isinstance(line_number, int) or line_number < 1 or line_number > total_lines:
             raise ValueError(f"Line number must be between 1 and {total_lines}")
 
@@ -336,8 +345,7 @@ class Editor(BaseModel):
         """Moves the window down by 100 lines."""
         self._check_current_file()
 
-        with self.current_file.open() as file:
-            total_lines = max(1, sum(1 for _ in file))
+        total_lines = max(1, len(self._read_lines_with_fallback(self.current_file)))
         self.current_line = self._clamp(self.current_line + self.window, 1, total_lines)
         output = self._cur_file_header(self.current_file, total_lines)
         output += self._print_window(self.current_file, self.current_line, self.window)
@@ -347,8 +355,7 @@ class Editor(BaseModel):
         """Moves the window up by 100 lines."""
         self._check_current_file()
 
-        with self.current_file.open() as file:
-            total_lines = max(1, sum(1 for _ in file))
+        total_lines = max(1, len(self._read_lines_with_fallback(self.current_file)))
         self.current_line = self._clamp(self.current_line - self.window, 1, total_lines)
         output = self._cur_file_header(self.current_file, total_lines)
         output += self._print_window(self.current_file, self.current_line, self.window)
@@ -363,7 +370,8 @@ class Editor(BaseModel):
         filename = self._try_fix_path(filename)
 
         if filename.exists():
-            raise FileExistsError(f"File '{filename}' already exists.")
+            self.open_file(filename)
+            return f"[File {filename} already exists. Opened existing file.]"
         await awrite(filename, "\n")
 
         self.open_file(filename)
@@ -567,8 +575,7 @@ class Editor(BaseModel):
                 temp_file_path = temp_file.name
 
                 # Read the original file and check if empty and for a trailing newline
-                with file_name.open() as original_file:
-                    lines = original_file.readlines()
+                lines = self._read_lines_with_fallback(file_name)
 
                 if is_append:
                     content, n_added_lines = self._append_impl(lines, content)
@@ -683,8 +690,7 @@ class Editor(BaseModel):
             # logger.warning(f"An unexpected error occurred: {e}")
             raise Exception(f"{error_info}") from e
         # Update the file information and print the updated content
-        with file_name.open("r", encoding="utf-8") as file:
-            n_total_lines = max(1, len(file.readlines()))
+        n_total_lines = max(1, len(self._read_lines_with_fallback(file_name)))
         if first_error_line is not None and int(first_error_line) > 0:
             self.current_line = first_error_line
         else:
@@ -779,36 +785,30 @@ class Editor(BaseModel):
 
         # Check if the first_replaced_line_number  and last_replaced_line_number  correspond to the appropriate content.
         mismatch_error = ""
-        with file_name.open() as file:
-            content = file.read()
-            # Ensure the content ends with a newline character
-            if not content.endswith("\n"):
-                content += "\n"
-            lines = content.splitlines(True)
-            total_lines = len(lines)
-            check_list = [
-                ("first", first_replaced_line_number, first_replaced_line_content),
-                ("last", last_replaced_line_number, last_replaced_line_content),
-            ]
-            for position, line_number, line_content in check_list:
-                if line_number > len(lines) or lines[line_number - 1].rstrip() != line_content:
-                    start = max(1, line_number - 3)
-                    end = min(total_lines, line_number + 3)
-                    context = "\n".join(
-                        [
-                            f'The {cur_line_number:03d} line is "{lines[cur_line_number-1].rstrip()}"'
-                            for cur_line_number in range(start, end + 1)
-                        ]
-                    )
-                    mismatch_error += LINE_NUMBER_AND_CONTENT_MISMATCH.format(
-                        position=position,
-                        line_number=line_number,
-                        true_content=lines[line_number - 1].rstrip()
-                        if line_number - 1 < len(lines)
-                        else "OUT OF FILE RANGE!",
-                        fake_content=line_content.replace("\n", "\\n"),
-                        context=context.strip(),
-                    )
+        content = "".join(self._read_lines_with_fallback(file_name))
+        # Ensure the content ends with a newline character
+        if not content.endswith("\n"):
+            content += "\n"
+        lines = content.splitlines(True)
+        total_lines = len(lines)
+        check_list = [
+            ("first", first_replaced_line_number, first_replaced_line_content),
+            ("last", last_replaced_line_number, last_replaced_line_content),
+        ]
+        for position, line_number, line_content in check_list:
+            if line_number > len(lines) or lines[line_number - 1].rstrip() != line_content:
+                start = max(1, line_number - 3)
+                end = min(total_lines, line_number + 3)
+                context = "\n".join(
+                    [f'The {cur_line_number:03d} line is "{lines[cur_line_number-1].rstrip()}"' for cur_line_number in range(start, end + 1)]
+                )
+                mismatch_error += LINE_NUMBER_AND_CONTENT_MISMATCH.format(
+                    position=position,
+                    line_number=line_number,
+                    true_content=lines[line_number - 1].rstrip() if line_number - 1 < len(lines) else "OUT OF FILE RANGE!",
+                    fake_content=line_content.replace("\n", "\\n"),
+                    context=context.strip(),
+                )
         if mismatch_error:
             raise ValueError(mismatch_error)
         ret_str = self._edit_file_impl(
@@ -879,8 +879,7 @@ class Editor(BaseModel):
         # if found, replace it with `new_content`
         # if not found, perform a fuzzy search to find the closest match and replace it with `new_content`
         file_name = self._try_fix_path(file_name)
-        with file_name.open("r") as file:
-            file_content = file.read()
+        file_content = "".join(self._read_lines_with_fallback(file_name))
 
         if to_replace.strip() == "":
             if file_content.strip() == "":
@@ -1011,10 +1010,13 @@ class Editor(BaseModel):
                 if file.startswith("."):
                     continue
                 file_path = Path(root) / file
-                with file_path.open("r", errors="ignore") as f:
-                    for line_num, line in enumerate(f, 1):
-                        if search_term in line:
-                            matches.append((file_path, line_num, line.strip()))
+                try:
+                    lines = self._read_lines_with_fallback(file_path)
+                except (OSError, PermissionError):
+                    continue
+                for line_num, line in enumerate(lines, 1):
+                    if search_term in line:
+                        matches.append((file_path, line_num, line.strip()))
 
         if not matches:
             return f'No matches found for "{search_term}" in {dir_path}'
@@ -1048,10 +1050,9 @@ class Editor(BaseModel):
             raise FileNotFoundError(f"File {file_path} not found")
 
         matches = []
-        with file_path.open() as file:
-            for i, line in enumerate(file, 1):
-                if search_term in line:
-                    matches.append((i, line.strip()))
+        for i, line in enumerate(self._read_lines_with_fallback(file_path), 1):
+            if search_term in line:
+                matches.append((i, line.strip()))
         res_list = []
         if matches:
             res_list.append(f'[Found {len(matches)} matches for "{search_term}" in {file_path}]')

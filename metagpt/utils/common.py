@@ -721,16 +721,26 @@ async def aread(filename: str | Path, encoding="utf-8") -> str:
     """Read file asynchronously."""
     if not filename or not Path(filename).exists():
         return ""
-    try:
-        async with aiofiles.open(str(filename), mode="r", encoding=encoding) as reader:
-            content = await reader.read()
-    except UnicodeDecodeError:
-        async with aiofiles.open(str(filename), mode="rb") as reader:
-            raw = await reader.read()
-            result = chardet.detect(raw)
-            detected_encoding = result["encoding"]
-            content = raw.decode(detected_encoding)
-    return content
+    encodings_to_try: list[str] = []
+    for candidate in (encoding, "utf-8", "gbk", "utf-8-sig"):
+        if candidate and candidate not in encodings_to_try:
+            encodings_to_try.append(candidate)
+
+    for candidate in encodings_to_try:
+        try:
+            async with aiofiles.open(str(filename), mode="r", encoding=candidate) as reader:
+                return await reader.read()
+        except (UnicodeDecodeError, LookupError):
+            continue
+
+    async with aiofiles.open(str(filename), mode="rb") as reader:
+        raw = await reader.read()
+        result = chardet.detect(raw)
+        detected_encoding = result.get("encoding") or "utf-8"
+        try:
+            return raw.decode(detected_encoding)
+        except (UnicodeDecodeError, LookupError):
+            return raw.decode("utf-8", errors="replace")
 
 
 async def awrite(filename: str | Path, data: str, encoding="utf-8"):

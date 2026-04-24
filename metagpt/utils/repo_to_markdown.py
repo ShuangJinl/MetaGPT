@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Tuple, Union
+from typing import Optional, Tuple, Union
 
 from gitignore_parser import parse_gitignore
 
@@ -100,7 +100,7 @@ async def _write_file(filename: Path, repo_path: Path) -> str:
         return ""
 
 
-async def is_text_file(filename: Union[str, Path]) -> Tuple[bool, str]:
+async def is_text_file(filename: Union[str, Path]) -> Tuple[bool, Optional[str]]:
     """
     Determines if the specified file is a text file based on its MIME type.
 
@@ -140,6 +140,10 @@ async def is_text_file(filename: Union[str, Path]) -> Tuple[bool, str]:
         "video/mp4",
     }
     mime_type = await get_mime_type(Path(filename), force_read=True)
+    if not mime_type:
+        # `mimetypes`/`file` may fail on some platforms or non-ASCII paths.
+        return False, None
+
     v = "text/" in mime_type or mime_type in pass_set
     if v:
         return True, mime_type

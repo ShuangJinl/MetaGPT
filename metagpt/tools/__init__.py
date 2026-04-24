@@ -10,6 +10,7 @@ from metagpt.tools import libs  # this registers all tools
 from metagpt.tools.tool_registry import TOOL_REGISTRY
 from metagpt.configs.search_config import SearchEngineType
 from metagpt.configs.browser_config import WebBrowserEngineType
+from metagpt.tools.academic_search import AcademicSearchTool, Paper, get_academic_search_tool
 
 
 _ = libs, TOOL_REGISTRY  # Avoid pre-commit error
@@ -20,4 +21,11 @@ class SearchInterface:
         ...
 
 
-__all__ = ["SearchEngineType", "WebBrowserEngineType", "TOOL_REGISTRY"]
+__all__ = [
+    "SearchEngineType",
+    "WebBrowserEngineType",
+    "TOOL_REGISTRY",
+    "AcademicSearchTool",
+    "Paper",
+    "get_academic_search_tool",
+]
