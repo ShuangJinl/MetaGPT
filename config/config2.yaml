@@ -2,4 +2,4 @@ llm:
   api_type: "openai"
   model: "qwen3.5-27b"
   base_url: "https://www.dmxapi.cn/v1"
-  api_key: "YOUR_API_KEY"
+  api_key: "这里填你真正的API key"
