@@ -24,7 +24,7 @@ class YamlModel(BaseModel):
         if not file_path.exists():
             return {}
         with open(file_path, "r", encoding=encoding) as file:
-            return yaml.safe_load(file)
+            return yaml.safe_load(file) or {}
 
     @classmethod
     def from_yaml_file(cls, file_path: Path) -> "YamlModel":

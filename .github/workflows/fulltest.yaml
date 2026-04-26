@@ -63,15 +63,17 @@ jobs:
         coverage report -m || true
     - name: Show failed tests and overall summary
       run: |
-        if grep -E "FAILED tests|ERROR tests|[0-9]+ passed" unittest.txt; then
-          failed_count=$(grep -E "FAILED tests|ERROR tests" unittest.txt | wc -l)
-          if [[ "$failed_count" -gt 0 ]]; then
-            echo "$failed_count failed lines found! Task failed."
-            exit 1
-          fi
-        else
-          echo "No test results found in unittest.txt"
+        if [ ! -s unittest.txt ]; then
+          echo "No test results found in unittest.txt (pytest may have crashed)"
           exit 1
+        fi
+        if grep -E "FAILED tests|ERROR tests" unittest.txt; then
+          failed_count=$(grep -E "FAILED tests|ERROR tests" unittest.txt | wc -l)
+          echo "$failed_count failed lines found! Task failed."
+          exit 1
+        fi
+        if grep -E "[0-9]+ passed" unittest.txt; then
+          echo "All tests passed."
         fi
     - name: Upload pytest test results
       uses: actions/upload-artifact@v4

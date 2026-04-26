@@ -175,7 +175,8 @@ def merge_dict(dicts: Iterable[Dict]) -> Dict:
     """Merge multiple dicts into one, with the latter dict overwriting the former"""
     result = {}
     for dictionary in dicts:
-        result.update(dictionary)
+        if dictionary:
+            result.update(dictionary)
     return result
 
 
