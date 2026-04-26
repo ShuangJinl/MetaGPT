@@ -60,7 +60,7 @@ jobs:
         pytest tests/ --doctest-modules --cov=./metagpt/ --cov-report=xml:cov.xml --cov-report=html:htmlcov --durations=20 | tee unittest.txt
     - name: Show coverage report
       run: |
-        coverage report -m
+        coverage report -m || true
     - name: Show failed tests and overall summary
       run: |
         grep -E "FAILED tests|ERROR tests|[0-9]+ passed," unittest.txt

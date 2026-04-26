@@ -1,6 +1,5 @@
 [run]
-source = 
-    ./metagpt/
+source = metagpt
 omit = 
     */metagpt/ext/*
     */metagpt/environment/android_env/*
