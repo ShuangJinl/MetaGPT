@@ -51,6 +51,6 @@ async def test_action_serdeser(context):
     review = await new_action.run(TEMPLATE_CONTEXT)
 
     assert new_action.name == "WriteReview"
-    assert type(review) == ActionNode
+    assert type(review) is ActionNode
     assert review.instruct_content
     assert review.get("LGTM") in ["LGTM", "LBTM"]
