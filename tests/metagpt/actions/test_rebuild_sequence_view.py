@@ -7,6 +7,8 @@
 @Desc    : Unit tests for reconstructing the sequence diagram from a source code project.
 """
 
+import os
+
 from pathlib import Path
 
 import pytest
@@ -57,7 +59,7 @@ async def test_rebuild(context, mocker):
 @pytest.mark.parametrize(
     ("root", "pathname", "want"),
     [
-        (Path(__file__).parent.parent.parent, "/".join(__file__.split("/")[-2:]), Path(__file__)),
+        (Path(__file__).parent.parent.parent, os.sep.join(__file__.split(os.sep)[-2:]), Path(__file__)),
         (Path(__file__).parent.parent.parent, "f/g.txt", None),
     ],
 )

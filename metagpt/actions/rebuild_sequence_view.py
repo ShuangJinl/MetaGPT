@@ -462,9 +462,9 @@ class RebuildSequenceView(Action):
         if re.match(r"^/.+", str(pathname)):
             return pathname
         files = list_files(root=root)
-        postfix = "/" + str(pathname)
+        postfix = str(pathname)
         for i in files:
-            if str(i).endswith(postfix):
+            if str(i).endswith(postfix) or str(i).replace("\\", "/").endswith(postfix):
                 return i
         return None
 
