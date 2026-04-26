@@ -9,7 +9,7 @@ repos:
     rev: 5.11.5
     hooks:
       - id: isort
-        args: ['--profile', 'black']
+        args: ['--profile', 'black', '--line-length', '120']
         exclude: >-
             (?x)^(
             .*__init__\.py$
@@ -21,9 +21,4 @@ repos:
     hooks:
       - id: ruff
         args: [ --fix ]
-
-  - repo: https://github.com/psf/black
-    rev: 23.3.0
-    hooks:
-      - id: black
-        args: ['--line-length', '120']
+      - id: ruff-format

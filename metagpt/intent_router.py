@@ -153,4 +153,3 @@ def should_trigger_literature_review(idea: str) -> bool:
     if any(keyword in normalized for keyword in LITERATURE_REVIEW_KEYWORDS):
         return True
     return bool(re.search(r"\b(sota|state\s+of\s+the\s+art|evidence-based|research-backed)\b", normalized))
-

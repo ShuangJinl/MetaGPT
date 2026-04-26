@@ -3,6 +3,7 @@ This file is borrowed from OpenDevin
 You can find the original repository here:
 https://github.com/All-Hands-AI/OpenHands/blob/main/openhands/runtime/plugins/agent_skills/file_ops/file_ops.py
 """
+
 import os
 import re
 import shutil
@@ -583,12 +584,12 @@ class Editor(BaseModel):
                     try:
                         content, n_added_lines = self._insert_impl(lines, start, content)
                     except LineNumberError as e:
-                        return (f"{ERROR_MSG}\n" f"{e}\n" f"{ERROR_MSG_SUFFIX}") + "\n"
+                        return (f"{ERROR_MSG}\n{e}\n{ERROR_MSG_SUFFIX}") + "\n"
                 else:
                     try:
                         content, n_added_lines = self._edit_impl(lines, start, end, content)
                     except LineNumberError as e:
-                        return (f"{ERROR_MSG}\n" f"{e}\n" f"{ERROR_MSG_SUFFIX}") + "\n"
+                        return (f"{ERROR_MSG}\n{e}\n{ERROR_MSG_SUFFIX}") + "\n"
 
                 if not content.endswith("\n"):
                     content += "\n"
@@ -800,12 +801,17 @@ class Editor(BaseModel):
                 start = max(1, line_number - 3)
                 end = min(total_lines, line_number + 3)
                 context = "\n".join(
-                    [f'The {cur_line_number:03d} line is "{lines[cur_line_number-1].rstrip()}"' for cur_line_number in range(start, end + 1)]
+                    [
+                        f'The {cur_line_number:03d} line is "{lines[cur_line_number - 1].rstrip()}"'
+                        for cur_line_number in range(start, end + 1)
+                    ]
                 )
                 mismatch_error += LINE_NUMBER_AND_CONTENT_MISMATCH.format(
                     position=position,
                     line_number=line_number,
-                    true_content=lines[line_number - 1].rstrip() if line_number - 1 < len(lines) else "OUT OF FILE RANGE!",
+                    true_content=lines[line_number - 1].rstrip()
+                    if line_number - 1 < len(lines)
+                    else "OUT OF FILE RANGE!",
                     fake_content=line_content.replace("\n", "\\n"),
                     context=context.strip(),
                 )

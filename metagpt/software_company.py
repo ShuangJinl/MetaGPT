@@ -10,9 +10,13 @@ import typer
 
 from metagpt.actions.literature_review import LiteratureReviewAction
 from metagpt.config2 import config as metagpt_config
-from metagpt.context import Context
 from metagpt.const import CONFIG_ROOT
-from metagpt.intent_router import extract_paper_research_topic, looks_like_paper_research_topic, should_trigger_literature_review
+from metagpt.context import Context
+from metagpt.intent_router import (
+    extract_paper_research_topic,
+    looks_like_paper_research_topic,
+    should_trigger_literature_review,
+)
 from metagpt.roles.paper_researcher import PaperResearcher
 
 app = typer.Typer(add_completion=False, pretty_exceptions_show_locals=False, invoke_without_command=True)
@@ -59,6 +63,7 @@ def _extract_paper_topic_from_idea(idea: str) -> str:
     """从 idea 中提取论文研究主题"""
     normalized = idea.lower().strip()
     import re
+
     for pattern in (
         r"topic\s+is\s+(?P<topic>.+)$",
         r"主题[是为:]*(?P<topic>.+)$",
@@ -94,13 +99,7 @@ def generate_repo(
     """Run the startup logic. Can be called from CLI or other Python scripts."""
     from metagpt.config2 import config
     from metagpt.context import Context
-    from metagpt.roles import (
-        Architect,
-        DataAnalyst,
-        Engineer2,
-        ProductManager,
-        TeamLeader,
-    )
+    from metagpt.roles import Architect, DataAnalyst, Engineer2, ProductManager, TeamLeader
     from metagpt.team import Team
 
     config.update_via_cli(project_path, project_name, inc, reqa_file, max_auto_summarize_code)
@@ -173,7 +172,9 @@ def _render_literature_context(review_result: dict) -> str:
         lines.append("  - No papers extracted.")
         return "\n".join(lines)
     for idx, paper in enumerate(papers, 1):
-        lines.append(f"  {idx}. {paper.get('title', 'Untitled')} ({paper.get('year', 'N/A')}, {paper.get('venue', 'N/A')})")
+        lines.append(
+            f"  {idx}. {paper.get('title', 'Untitled')} ({paper.get('year', 'N/A')}, {paper.get('venue', 'N/A')})"
+        )
         if paper.get("url"):
             lines.append(f"     URL: {paper['url']}")
         if paper.get("abstract"):
@@ -244,8 +245,10 @@ def startup(
 
     normalized_mode = literature_review_mode.strip().lower()
     topic = extract_paper_research_topic(idea) if is_paper_request else idea
-    should_review = is_paper_request or normalized_mode == "always" or (
-        normalized_mode == "keyword" and should_trigger_literature_review(idea)
+    should_review = (
+        is_paper_request
+        or normalized_mode == "always"
+        or (normalized_mode == "keyword" and should_trigger_literature_review(idea))
     )
     literature_context = None
     if should_review:
