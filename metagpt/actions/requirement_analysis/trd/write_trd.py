@@ -6,6 +6,7 @@
 @File    : write_trd.py
 @Desc    : The implementation of Chapter 2.1.6~2.1.7 of RFC243. https://deepwisdom.feishu.cn/wiki/QobGwPkImijoyukBUKHcrYetnBb
 """
+
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 
 from metagpt.actions import Action

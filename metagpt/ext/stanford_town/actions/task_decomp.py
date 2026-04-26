@@ -104,7 +104,7 @@ class TaskDecomp(STAction):
             logger.debug(role.scratch.f_daily_schedule_hourly_org)
             logger.debug(all_indices)
 
-            summ_str = f'Today is {role.scratch.curr_time.strftime("%B %d, %Y")}. '
+            summ_str = f"Today is {role.scratch.curr_time.strftime('%B %d, %Y')}. "
             summ_str += "From "
             for index in all_indices:
                 logger.debug(f"index {index}")

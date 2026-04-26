@@ -4,6 +4,7 @@
 @Author  : alexanderwu
 @File    : write_review.py
 """
+
 import asyncio
 from typing import List, Literal
 
@@ -24,7 +25,7 @@ REVIEW = ActionNode(
 REVIEW_RESULT = ActionNode(
     key="ReviewResult",
     expected_type=Literal["LGTM", "LBTM"],
-    instruction="LGTM/LBTM. If the code is fully implemented, " "give a LGTM, otherwise provide a LBTM.",
+    instruction="LGTM/LBTM. If the code is fully implemented, give a LGTM, otherwise provide a LBTM.",
     example="LBTM",
 )
 

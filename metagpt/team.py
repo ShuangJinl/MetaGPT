@@ -71,7 +71,7 @@ class Team(BaseModel):
         team_info_path = stg_path.joinpath("team.json")
         if not team_info_path.exists():
             raise FileNotFoundError(
-                "recover storage meta file `team.json` not exist, " "not to recover and please start a new project."
+                "recover storage meta file `team.json` not exist, not to recover and please start a new project."
             )
 
         team_info: dict = read_json_file(team_info_path)

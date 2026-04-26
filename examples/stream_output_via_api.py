@@ -6,6 +6,7 @@
 @File    : stream_output_via_api.py
 @Description    : Stream log information and communicate over the network via web api.
 """
+
 import asyncio
 import json
 import socket

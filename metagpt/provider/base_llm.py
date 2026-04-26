@@ -6,6 +6,7 @@
 @File    : base_llm.py
 @Desc    : mashenquan, 2023/8/22. + try catch
 """
+
 from __future__ import annotations
 
 import json

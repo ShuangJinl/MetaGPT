@@ -5,6 +5,7 @@
 @Author  : mannaandpoem
 @File    : mock.py
 """
+
 NEW_REQUIREMENT_SAMPLE = """
 Adding graphical interface functionality to enhance the user experience in the number-guessing game. The existing number-guessing game currently relies on command-line input for numbers. The goal is to introduce a graphical interface to improve the game's usability and visual appeal
 """

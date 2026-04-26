@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_design_api_review.py
 """
+
 import pytest
 
 from metagpt.actions.design_api_review import DesignReview

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_write_prd_review.py
 """
+
 import pytest
 
 from metagpt.actions.write_prd_review import WritePRDReview

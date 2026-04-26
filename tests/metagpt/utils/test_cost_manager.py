@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_cost_manager.py
 """
+
 import pytest
 
 from metagpt.utils.cost_manager import CostManager

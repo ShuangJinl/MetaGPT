@@ -5,6 +5,7 @@
 @Author  : alitrack
 @File    : mmdc_pyppeteer.py
 """
+
 import os
 from typing import List, Optional
 from urllib.parse import urljoin

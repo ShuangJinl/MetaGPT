@@ -13,6 +13,7 @@ each node is determined, and a figure is generated showing three things:
 2. The degree-rank plot for the Graph, and
 3. The degree histogram
 """
+
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np

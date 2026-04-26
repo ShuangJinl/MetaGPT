@@ -14,6 +14,7 @@
 @Modified By: mashenquan, 2023-12-5. Enhance the workflow to navigate to WriteCode or QaEngineer based on the results
     of SummarizeCode.
 """
+
 from typing import Optional
 
 from pydantic import BaseModel, Field

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_product_manager.py
 """
+
 import json
 
 import pytest

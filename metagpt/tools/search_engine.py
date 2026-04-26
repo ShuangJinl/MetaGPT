@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : search_engine.py
 """
+
 import importlib
 from typing import Annotated, Callable, Coroutine, Literal, Optional, Union, overload
 
@@ -105,8 +106,7 @@ class SearchEngine(BaseModel):
         query: str,
         max_results: int = 8,
         as_string: Literal[True] = True,
-    ) -> str:
-        ...
+    ) -> str: ...
 
     @overload
     def run(
@@ -114,8 +114,7 @@ class SearchEngine(BaseModel):
         query: str,
         max_results: int = 8,
         as_string: Literal[False] = False,
-    ) -> list[dict[str, str]]:
-        ...
+    ) -> list[dict[str, str]]: ...
 
     async def run(
         self,

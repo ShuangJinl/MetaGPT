@@ -214,7 +214,7 @@ class RAGExample:
 
     @staticmethod
     def _print_title(title):
-        logger.info(f"{'#'*30} {title} {'#'*30}")
+        logger.info(f"{'#' * 30} {title} {'#' * 30}")
 
     @staticmethod
     def _print_retrieve_result(result):

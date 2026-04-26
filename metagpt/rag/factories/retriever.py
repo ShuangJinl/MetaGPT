@@ -1,6 +1,5 @@
 """RAG Retriever Factory."""
 
-
 from functools import wraps
 
 import chromadb

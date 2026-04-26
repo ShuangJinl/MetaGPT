@@ -5,6 +5,7 @@
 @Author  : unkn-wn (Leon Yee)
 @File    : test_lancedb_store.py
 """
+
 import random
 
 from metagpt.document_store.lancedb_store import LanceStore

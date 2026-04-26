@@ -7,6 +7,7 @@
 @Desc    : Reconstruct sequence view information through reverse engineering.
     Implement RFC197, https://deepwisdom.feishu.cn/wiki/VyK0wfq56ivuvjklMKJcmHQknGt
 """
+
 from __future__ import annotations
 
 import re

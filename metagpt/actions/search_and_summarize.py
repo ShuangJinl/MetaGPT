@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : search_google.py
 """
+
 from typing import Optional
 
 import pydantic

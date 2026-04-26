@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_solver.py
 """
+
 import pytest
 
 from metagpt.actions.action_graph import ActionGraph

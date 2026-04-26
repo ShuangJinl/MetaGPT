@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_search_engine.py
 """
+
 from __future__ import annotations
 
 from typing import Callable

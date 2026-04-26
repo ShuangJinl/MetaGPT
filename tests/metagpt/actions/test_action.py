@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_action.py
 """
+
 import pytest
 
 from metagpt.actions import Action, ActionType, WritePRD, WriteTest

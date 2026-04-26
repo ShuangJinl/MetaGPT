@@ -31,7 +31,7 @@ class ToolLogItem(BaseModel):
 
 
 TOOL_LOG_END_MARKER = ToolLogItem(
-    type="str", name="end_marker", value="\x18\x19\x1B\x18"
+    type="str", name="end_marker", value="\x18\x19\x1b\x18"
 )  # A special log item to suggest the end of a stream log
 
 _print_level = "INFO"
@@ -115,8 +115,8 @@ def set_human_input_func(func):
 _llm_stream_log = partial(print, end="")
 
 
-_tool_output_log = (
-    lambda *args, **kwargs: None
+_tool_output_log = lambda *args, **kwargs: (
+    None
 )  # a dummy function to avoid errors if set_tool_output_logfunc is not called
 
 

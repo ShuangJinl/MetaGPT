@@ -7,6 +7,7 @@
 @Modified By: mashenquan, 2023/11/27. Following the think-act principle, solidify the task parameters when creating the
         WriteCode object, rather than passing them in when calling the run function.
 """
+
 import asyncio
 import os
 from pathlib import Path
@@ -280,7 +281,7 @@ class ValidateAndRewriteCode(Action):
             cr_prompt = EXAMPLE_AND_INSTRUCTION.format(
                 format_example=FORMAT_EXAMPLE.format(filename=code_path),
             )
-            logger.info(f"The {i+1}th time to CodeReview: {code_path}.")
+            logger.info(f"The {i + 1}th time to CodeReview: {code_path}.")
             result, rewrited_code = await review_action.write_code_review_and_rewrite(
                 context_prompt, cr_prompt, doc=code_doc
             )

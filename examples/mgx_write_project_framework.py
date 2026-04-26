@@ -6,6 +6,7 @@
 @File    : write_project_framework.py
 @Desc    : The implementation of RFC243. https://deepwisdom.feishu.cn/wiki/QobGwPkImijoyukBUKHcrYetnBb
 """
+
 import asyncio
 import json
 import uuid

@@ -11,12 +11,12 @@ class Save(NighttimeWhispers):
         del prompt_json["ACTION"]
         del prompt_json["ATTENTION"]
 
-        prompt_json["OUTPUT_FORMAT"][
-            "THOUGHTS"
-        ] = "It is night time. Return the thinking steps of your decision of whether to save the player JUST killed this night."
-        prompt_json["OUTPUT_FORMAT"][
-            "RESPONSE"
-        ] = "Follow the Moderator's instruction, decide whether you want to save that person or not. Return SAVE or PASS."
+        prompt_json["OUTPUT_FORMAT"]["THOUGHTS"] = (
+            "It is night time. Return the thinking steps of your decision of whether to save the player JUST killed this night."
+        )
+        prompt_json["OUTPUT_FORMAT"]["RESPONSE"] = (
+            "Follow the Moderator's instruction, decide whether you want to save that person or not. Return SAVE or PASS."
+        )
 
         return prompt_json
 

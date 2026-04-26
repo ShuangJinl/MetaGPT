@@ -10,6 +10,7 @@ Do the steps following:
 - reflect, do the High-level thinking based on memories and re-add into the memory
 - execute, move or else in the Maze
 """
+
 import math
 import random
 import time
@@ -574,7 +575,7 @@ class STRole(Role):
             ret = False
             time.sleep(1)
             logger.warning(
-                f"{self.sim_code}/environment/{self.step}.json not exist or parses failed, " f"sleep 1s and re-check"
+                f"{self.sim_code}/environment/{self.step}.json not exist or parses failed, sleep 1s and re-check"
             )
         return ret
 

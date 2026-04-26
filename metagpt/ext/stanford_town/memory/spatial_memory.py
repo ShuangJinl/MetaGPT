@@ -5,6 +5,7 @@ File: spatial_memory.py
 Description: Defines the MemoryTree class that serves as the agents' spatial
 memory that aids in grounding their behavior in the game world.
 """
+
 from pathlib import Path
 
 from pydantic import BaseModel, Field

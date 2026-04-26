@@ -255,8 +255,7 @@ class TestSimpleEngine:
     def test_ensure_retriever_of_type(self, mocker):
         # Mock
         class MyRetriever:
-            def add_nodes(self):
-                ...
+            def add_nodes(self): ...
 
         mock_retriever = mocker.MagicMock(spec=SimpleHybridRetriever)
         mock_retriever.retrievers = [MyRetriever()]

@@ -5,6 +5,7 @@
 @File    : summarize_code.py
 @Modified By: mashenquan, 2023/12/5. Archive the summarization content of issue discovery for use in WriteCode.
 """
+
 from pathlib import Path
 from typing import Optional
 

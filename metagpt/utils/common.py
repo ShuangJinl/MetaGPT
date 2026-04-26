@@ -9,6 +9,7 @@
 @Modified By: mashenquan, 2023/11/27. Bug fix: `parse_recipient` failed to parse the recipient in certain GPT-3.5
         responses.
 """
+
 from __future__ import annotations
 
 import ast
@@ -1146,7 +1147,7 @@ def log_time(method):
 
     def before_call():
         start_time, cpu_start_time = time.perf_counter(), time.process_time()
-        logger.info(f"[{method.__name__}] started at: " f"{datetime.now().strftime('%Y-%m-%d %H:%m:%S')}")
+        logger.info(f"[{method.__name__}] started at: {datetime.now().strftime('%Y-%m-%d %H:%m:%S')}")
         return start_time, cpu_start_time
 
     def after_call(start_time, cpu_start_time):

@@ -6,6 +6,7 @@
 @File    : test_common.py
 @Modified by: mashenquan, 2023/11/21. Add unit tests.
 """
+
 import importlib
 import os
 import platform

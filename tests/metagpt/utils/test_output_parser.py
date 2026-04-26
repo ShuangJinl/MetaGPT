@@ -5,6 +5,7 @@
 @Author  : chengmaoyu
 @File    : test_output_parser.py
 """
+
 from typing import List, Tuple, Union
 
 import pytest

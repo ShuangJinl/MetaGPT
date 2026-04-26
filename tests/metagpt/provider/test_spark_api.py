@@ -3,7 +3,6 @@
 文档：https://www.xfyun.cn/doc/spark/Web.html
 """
 
-
 from typing import AsyncIterator, List
 
 import pytest

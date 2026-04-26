@@ -6,6 +6,7 @@
 @File    : product_manager.py
 @Modified By: liushaojie, 2024/10/17.
 """
+
 from metagpt.actions import UserRequirement, WritePRD
 from metagpt.actions.prepare_documents import PrepareDocuments
 from metagpt.actions.search_enhanced_qa import SearchEnhancedQA

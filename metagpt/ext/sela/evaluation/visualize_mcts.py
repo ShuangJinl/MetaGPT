@@ -20,7 +20,7 @@ NODE_FONT_SIZE = 18
 
 def get_role_plans(role):
     plans = role.planner.plan.tasks
-    instruct_plans = [f"{i+1}. {task.instruction}" for i, task in enumerate(plans)]
+    instruct_plans = [f"{i + 1}. {task.instruction}" for i, task in enumerate(plans)]
     return instruct_plans
 
 
@@ -37,7 +37,7 @@ def get_tree_text(node: Node):
         role = load_role(node)
         node_id = node.id
         plans = role.planner.plan.tasks
-        instruct_plans = [f"{i+1}. {task.instruction}" for i, task in enumerate(plans)]
+        instruct_plans = [f"{i + 1}. {task.instruction}" for i, task in enumerate(plans)]
         if previous_plans is not None:
             instruct_plans = [plan for plan, prev_plan in zip(instruct_plans, previous_plans) if plan != prev_plan]
         instruct_plans_text = "\n".join(instruct_plans)

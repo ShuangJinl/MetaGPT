@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : faiss_store.py
 """
+
 import asyncio
 from pathlib import Path
 from typing import Any, Optional

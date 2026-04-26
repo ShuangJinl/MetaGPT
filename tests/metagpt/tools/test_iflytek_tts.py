@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_iflytek_tts.py
 """
+
 import pytest
 
 from metagpt.config2 import config

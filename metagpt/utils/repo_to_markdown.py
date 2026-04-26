@@ -3,6 +3,7 @@
 """
 This file provides functionality to convert a local repository into a markdown representation.
 """
+
 from __future__ import annotations
 
 import re

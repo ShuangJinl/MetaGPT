@@ -6,6 +6,7 @@
 @Modified By: mashenquan, 2023/11/21. Fix bug: ReadTimeout.
 @Modified By: mashenquan, 2023/12/1. Fix bug: Unclosed connection caused by openai 0.x.
 """
+
 from __future__ import annotations
 
 import json
@@ -245,7 +246,7 @@ class OpenAILLM(BaseLLM):
                 return json.loads(message.tool_calls[0].function.arguments, strict=False)
             except json.decoder.JSONDecodeError as e:
                 error_msg = (
-                    f"Got JSONDecodeError for \n{'--'*40} \n{message.tool_calls[0].function.arguments}, {str(e)}"
+                    f"Got JSONDecodeError for \n{'--' * 40} \n{message.tool_calls[0].function.arguments}, {str(e)}"
                 )
                 logger.error(error_msg)
                 return self._parse_arguments(message.tool_calls[0].function.arguments)

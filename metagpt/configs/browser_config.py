@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : browser_config.py
 """
+
 from enum import Enum
 from typing import Literal
 

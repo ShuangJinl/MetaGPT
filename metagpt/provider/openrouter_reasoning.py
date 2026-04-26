@@ -47,7 +47,10 @@ class OpenrouterReasoningLLM(BaseLLM):
     async def _achat_completion(self, messages: list[dict], timeout: int = USE_CONFIG_TIMEOUT) -> dict:
         payload = self._const_kwargs(messages)
         resp, _, _ = await self.client.arequest(
-            url=self.url_suffix, method=self.http_method, params=payload, headers=self.headers  # empty
+            url=self.url_suffix,
+            method=self.http_method,
+            params=payload,
+            headers=self.headers,  # empty
         )
         resp = resp.decode_asjson()
         self._update_costs(resp["usage"], model=self.model)
@@ -60,7 +63,11 @@ class OpenrouterReasoningLLM(BaseLLM):
         self.headers["Content-Type"] = "text/event-stream"  # update header to adapt the client
         payload = self._const_kwargs(messages, stream=True)
         resp, _, _ = await self.client.arequest(
-            url=self.url_suffix, method=self.http_method, params=payload, headers=self.headers, stream=True  # empty
+            url=self.url_suffix,
+            method=self.http_method,
+            params=payload,
+            headers=self.headers,
+            stream=True,  # empty
         )
         collected_content = []
         collected_reasoning_content = []

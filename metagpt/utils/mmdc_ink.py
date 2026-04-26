@@ -5,6 +5,7 @@
 @Author  : alitrack
 @File    : mermaid.py
 """
+
 import base64
 from typing import List, Optional
 

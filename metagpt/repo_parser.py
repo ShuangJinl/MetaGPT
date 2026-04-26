@@ -9,6 +9,7 @@ This script is designed to create a symbols repository from the provided source 
 @Author  : alexanderwu
 @File    : repo_parser.py
 """
+
 from __future__ import annotations
 
 import ast
@@ -684,9 +685,9 @@ class RepoParser(BaseModel):
             funcs = {
                 any_to_str(ast.Constant): lambda x: x.value,
                 any_to_str(ast.Name): lambda x: x.id,
-                any_to_str(ast.Attribute): lambda x: f"{x.value.id}.{x.attr}"
-                if hasattr(x.value, "id")
-                else f"{x.attr}",
+                any_to_str(ast.Attribute): lambda x: (
+                    f"{x.value.id}.{x.attr}" if hasattr(x.value, "id") else f"{x.attr}"
+                ),
                 any_to_str(ast.Call): lambda x: RepoParser._parse_variable(x.func),
                 any_to_str(ast.Tuple): lambda x: [d.value for d in x.dims],
             }

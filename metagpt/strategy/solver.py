@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : solver.py
 """
+
 from abc import abstractmethod
 
 from metagpt.actions.action_graph import ActionGraph

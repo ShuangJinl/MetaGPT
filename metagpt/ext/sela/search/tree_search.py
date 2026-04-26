@@ -444,7 +444,7 @@ class BaseTreeSearch:
             self.load_node_order()
 
         for _ in range(rollouts):  # number of rollouts
-            mcts_logger.log("MCTS", f"Start the next rollout {_+1}")
+            mcts_logger.log("MCTS", f"Start the next rollout {_ + 1}")
             node = self.select(root)
             if node.is_terminal():
                 if node.raw_value == 0:

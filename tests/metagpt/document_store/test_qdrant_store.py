@@ -5,6 +5,7 @@
 @Author  : hezhaozhao
 @File    : test_qdrant_store.py
 """
+
 import random
 
 from qdrant_client.models import (

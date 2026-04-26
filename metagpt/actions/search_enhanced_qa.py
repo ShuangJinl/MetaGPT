@@ -195,7 +195,7 @@ class SearchEnhancedQA(Action):
         """
 
         citations = await self._search_citations(query)
-        context = "\n\n".join([f"[[citation:{i+1}]] {c}" for i, c in enumerate(citations)])
+        context = "\n\n".join([f"[[citation:{i + 1}]] {c}" for i, c in enumerate(citations)])
 
         return context
 

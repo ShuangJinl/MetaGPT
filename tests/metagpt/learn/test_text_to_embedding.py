@@ -6,6 +6,7 @@
 @File    : test_text_to_embedding.py
 @Desc    : Unit tests.
 """
+
 import json
 from pathlib import Path
 

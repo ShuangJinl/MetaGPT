@@ -4,6 +4,7 @@
 @Author  : alexanderwu
 @File    : write_review.py
 """
+
 from typing import List
 
 from metagpt.actions import Action

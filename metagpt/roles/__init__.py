@@ -6,19 +6,18 @@
 @File    : __init__.py
 """
 
-from metagpt.roles.role import Role
 from metagpt.roles.architect import Architect
-from metagpt.roles.project_manager import ProjectManager
-from metagpt.roles.product_manager import ProductManager
-from metagpt.roles.engineer import Engineer
-from metagpt.roles.qa_engineer import QaEngineer
-from metagpt.roles.searcher import Searcher
-from metagpt.roles.sales import Sales
 from metagpt.roles.di.data_analyst import DataAnalyst
-from metagpt.roles.di.team_leader import TeamLeader
 from metagpt.roles.di.engineer2 import Engineer2
+from metagpt.roles.di.team_leader import TeamLeader
+from metagpt.roles.engineer import Engineer
 from metagpt.roles.paper_researcher import PaperResearcher
-
+from metagpt.roles.product_manager import ProductManager
+from metagpt.roles.project_manager import ProjectManager
+from metagpt.roles.qa_engineer import QaEngineer
+from metagpt.roles.role import Role
+from metagpt.roles.sales import Sales
+from metagpt.roles.searcher import Searcher
 
 __all__ = [
     "Role",

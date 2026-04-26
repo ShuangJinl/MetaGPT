@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_metagpt_oas3_api_svc.py
 """
+
 import asyncio
 import subprocess
 from pathlib import Path

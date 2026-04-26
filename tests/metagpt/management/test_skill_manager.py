@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_skill_manager.py
 """
+
 from metagpt.actions import WritePRD, WriteTest
 from metagpt.logs import logger
 from metagpt.management.skill_manager import SkillManager

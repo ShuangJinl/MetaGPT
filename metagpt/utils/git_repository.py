@@ -6,6 +6,7 @@
 @File    : git_repository.py
 @Desc: Git repository management. RFC 135 2.2.3.3.
 """
+
 from __future__ import annotations
 
 import re

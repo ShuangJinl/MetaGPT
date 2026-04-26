@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : pic2txt.py
 """
+
 import json
 from pathlib import Path
 from typing import List

@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_openai_text_to_embedding.py
 """
+
 import json
 from pathlib import Path
 

@@ -155,7 +155,7 @@ class IndexRepo(BaseModel):
             except Exception as e:  # 超过最大长度
                 tenth = int(len(i.text) / 10)  # DEFAULT_MIN_TOKEN_COUNT = 10000
                 logger.warning(
-                    f"{e}, tenth len={tenth}, pre_part_len={len(i.text[: tenth * 6])}, post_part_len={len(i.text[tenth * 4:])}"
+                    f"{e}, tenth len={tenth}, pre_part_len={len(i.text[: tenth * 6])}, post_part_len={len(i.text[tenth * 4 :])}"
                 )
                 pre_win_part = await self.embedding.aget_text_embedding(i.text[: tenth * 6])
                 post_win_part = await self.embedding.aget_text_embedding(i.text[tenth * 4 :])

@@ -6,7 +6,6 @@
 @File    : execute_task.py
 """
 
-
 from metagpt.actions import Action
 from metagpt.schema import Message
 

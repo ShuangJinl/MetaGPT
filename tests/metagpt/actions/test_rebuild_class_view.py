@@ -6,6 +6,7 @@
 @File    : test_rebuild_class_view.py
 @Desc    : Unit tests for rebuild_class_view.py
 """
+
 from pathlib import Path
 
 import pytest

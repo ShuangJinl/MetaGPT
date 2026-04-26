@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : s3_config.py
 """
+
 from metagpt.utils.yaml_model import YamlModelWithoutDefault
 
 

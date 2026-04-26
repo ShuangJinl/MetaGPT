@@ -1,6 +1,5 @@
 """Simple perfect judge."""
 
-
 from pydantic import ConfigDict
 
 from metagpt.exp_pool.perfect_judges.base import BasePerfectJudge

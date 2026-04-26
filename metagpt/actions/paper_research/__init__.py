@@ -13,11 +13,11 @@ Actions:
     - RankPapers: 论文排序
 """
 
-from metagpt.actions.paper_research.search_papers import SearchAcademicPapers
-from metagpt.actions.paper_research.fetch_paper_details import FetchPaperDetails
 from metagpt.actions.paper_research.analyze_citations import AnalyzeCitations
+from metagpt.actions.paper_research.fetch_paper_details import FetchPaperDetails
 from metagpt.actions.paper_research.generate_summary import GeneratePaperSummary
 from metagpt.actions.paper_research.rank_papers import RankPapers
+from metagpt.actions.paper_research.search_papers import SearchAcademicPapers
 
 __all__ = [
     "SearchAcademicPapers",

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : action_graph.py
 """
+
 from __future__ import annotations
 
 # from metagpt.actions.action_node import ActionNode

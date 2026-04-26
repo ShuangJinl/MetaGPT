@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : singleton.py
 """
+
 import abc
 
 

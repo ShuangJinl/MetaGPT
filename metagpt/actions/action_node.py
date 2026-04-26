@@ -8,6 +8,7 @@
 NOTE: You should use typing.List instead of list to do type annotation. Because in the markdown extraction process,
   we can use typing to extract the type of the node, but we cannot use built-in list to extract.
 """
+
 import json
 import re
 import typing

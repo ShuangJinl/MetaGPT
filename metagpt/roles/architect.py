@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : architect.py
 """
+
 from pydantic import Field
 
 from metagpt.actions.design_api import WriteDesign

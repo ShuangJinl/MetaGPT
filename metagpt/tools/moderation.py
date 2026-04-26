@@ -5,6 +5,7 @@
 @Author  : zhanglei
 @File    : moderation.py
 """
+
 from typing import Union
 
 from metagpt.provider.base_llm import BaseLLM

@@ -10,6 +10,7 @@
 @Modified By: mashenquan, 2023/12/5. Move the generation logic of the project name to WritePRD.
 @Modified By: mashenquan, 2024/5/31. Implement Chapter 3 of RFC 236.
 """
+
 import json
 from pathlib import Path
 from typing import List, Optional, Union

@@ -13,8 +13,7 @@ class BaseBedrockProvider(ABC):
         self.reasoning_max_token = reasoning_max_token
 
     @abstractmethod
-    def _get_completion_from_dict(self, rsp_dict: dict) -> str:
-        ...
+    def _get_completion_from_dict(self, rsp_dict: dict) -> str: ...
 
     def get_request_body(self, messages: list[dict], const_kwargs, *args, **kwargs) -> str:
         body = json.dumps({"prompt": self.messages_to_prompt(messages), **const_kwargs})

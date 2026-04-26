@@ -5,6 +5,7 @@
 @File    : metagpt_api.py
 @Desc    : MetaGPT LLM provider.
 """
+
 from openai.types import CompletionUsage
 
 from metagpt.configs.llm_config import LLMType

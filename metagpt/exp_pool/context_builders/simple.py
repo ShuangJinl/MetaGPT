@@ -1,6 +1,5 @@
 """Simple context builder."""
 
-
 from typing import Any
 
 from metagpt.exp_pool.context_builders.base import BaseContextBuilder

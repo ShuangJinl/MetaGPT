@@ -7,6 +7,7 @@
 @Modified By: mashenquan, 2023-8-9, add more text formatting options
 @Modified By: mashenquan, 2023-8-17, move to `tools` folder.
 """
+
 from pathlib import Path
 
 import pytest

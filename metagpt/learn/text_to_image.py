@@ -6,6 +6,7 @@
 @File    : text_to_image.py
 @Desc    : Text-to-Image skill, which provides text-to-image functionality.
 """
+
 import base64
 from typing import Optional
 

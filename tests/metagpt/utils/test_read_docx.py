@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_read_docx.py
 """
+
 import pytest
 
 from metagpt.const import METAGPT_ROOT

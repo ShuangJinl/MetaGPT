@@ -5,6 +5,7 @@
 @Author  : Stitch-z
 @File    : test_write_tutorial.py
 """
+
 from typing import Dict
 
 import pytest

@@ -4,6 +4,7 @@
 @Author  : mashenquan
 @File    : fix_bug.py
 """
+
 from metagpt.actions import Action
 
 

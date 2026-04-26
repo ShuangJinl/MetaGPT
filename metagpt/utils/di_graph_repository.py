@@ -8,6 +8,7 @@
     This script defines a graph repository class based on a directed graph (DiGraph), providing functionalities
     specific to handling directed relationships between entities.
 """
+
 from __future__ import annotations
 
 import json

@@ -142,7 +142,7 @@ class UTGenerator:
         ptype = prop["type"]
         title = prop.get("title", "")
         desc = prop.get("description", "")
-        return f'{name}\t{ptype}\t{"Yes" if required else "No"}\t{title}\t{desc}'
+        return f"{name}\t{ptype}\t{'Yes' if required else 'No'}\t{title}\t{desc}"
 
     def _para_to_str(self, prop):
         required = prop.get("required", False)
@@ -171,15 +171,15 @@ class UTGenerator:
             return ""
 
         if node.get("in", "") in ["query", "header", "formData"]:
-            doc += f'{"	" * level}{self._para_to_str(node)}\n'
+            doc += f"{'	' * level}{self._para_to_str(node)}\n"
             doc += dive_into_object(node)
             return doc
 
         for name, prop in node.items():
             if not isinstance(prop, dict):
-                doc += f'{"	" * level}{self._para_to_str(node)}\n'
+                doc += f"{'	' * level}{self._para_to_str(node)}\n"
                 break
-            doc += f'{"	" * level}{self.para_to_str(name, prop, prop_object_required)}\n'
+            doc += f"{'	' * level}{self.para_to_str(name, prop, prop_object_required)}\n"
             doc += dive_into_object(prop)
             if prop["type"] == "array":
                 items = prop.get("items", {})
@@ -227,7 +227,7 @@ class UTGenerator:
             # param["in"]: path / formData / body / query / header
             for param in parameters:
                 if param["in"] == "path":
-                    doc += f'{param["name"]} \n'
+                    doc += f"{param['name']} \n"
 
             doc += "\nBody Parameters:\n"
             doc += "Name\tType\tRequired\tDefault Value\tRemarks\n"

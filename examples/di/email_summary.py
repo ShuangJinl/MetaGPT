@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 """
-@Date    :   2024/02/07 
+@Date    :   2024/02/07
 @Author  :   Tuo Zhou
 @File    :   email_summary.py
 """
+
 import os
 
 from metagpt.roles.di.data_interpreter import DataInterpreter

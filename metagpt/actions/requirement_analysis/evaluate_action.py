@@ -6,6 +6,7 @@
 @File    : evaluate_action.py
 @Desc    : The implementation of RFC243. https://deepwisdom.feishu.cn/wiki/QobGwPkImijoyukBUKHcrYetnBb
 """
+
 from typing import Optional
 
 from pydantic import BaseModel

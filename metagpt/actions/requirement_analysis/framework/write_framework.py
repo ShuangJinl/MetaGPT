@@ -6,6 +6,7 @@
 @File    : write_framework.py
 @Desc    : The implementation of Chapter 2.1.8 of RFC243. https://deepwisdom.feishu.cn/wiki/QobGwPkImijoyukBUKHcrYetnBb
 """
+
 import json
 
 from tenacity import retry, stop_after_attempt, wait_random_exponential

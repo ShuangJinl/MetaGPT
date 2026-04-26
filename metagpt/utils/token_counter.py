@@ -10,6 +10,7 @@ ref3: https://github.com/Significant-Gravitas/Auto-GPT/blob/master/autogpt/llm/t
 ref4: https://github.com/hwchase17/langchain/blob/master/langchain/chat_models/openai.py
 ref5: https://ai.google.dev/models/gemini
 """
+
 import anthropic
 import tiktoken
 
@@ -48,7 +49,10 @@ TOKEN_COSTS = {
     "o1-mini": {"prompt": 0.003, "completion": 0.012},
     "o1-mini-2024-09-12": {"prompt": 0.003, "completion": 0.012},
     "text-embedding-ada-002": {"prompt": 0.0004, "completion": 0.0},
-    "glm-3-turbo": {"prompt": 0.0007, "completion": 0.0007},  # 128k version, prompt + completion tokens=0.005￥/k-tokens
+    "glm-3-turbo": {
+        "prompt": 0.0007,
+        "completion": 0.0007,
+    },  # 128k version, prompt + completion tokens=0.005￥/k-tokens
     "glm-4": {"prompt": 0.014, "completion": 0.014},  # 128k version, prompt + completion tokens=0.1￥/k-tokens
     "glm-4-flash": {"prompt": 0, "completion": 0},
     "glm-4-plus": {"prompt": 0.007, "completion": 0.007},

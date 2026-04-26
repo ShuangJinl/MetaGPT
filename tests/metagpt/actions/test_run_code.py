@@ -6,6 +6,7 @@
 @File    : test_run_code.py
 @Modifiled By: mashenquan, 2023-12-6. According to RFC 135
 """
+
 import pytest
 
 from metagpt.actions.run_code import RunCode

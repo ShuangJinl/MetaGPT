@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_teacher.py
 """
+
 from typing import Dict, Optional
 
 import pytest

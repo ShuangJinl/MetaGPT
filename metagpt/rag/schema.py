@@ -1,4 +1,5 @@
 """RAG schemas."""
+
 from enum import Enum
 from pathlib import Path
 from typing import Any, ClassVar, List, Literal, Optional, Union

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : write_novel.py
 """
+
 import asyncio
 from typing import List
 

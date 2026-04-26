@@ -378,7 +378,7 @@ async def _create_react(
 async def _wait_react(role: "STRole", reaction_mode: str):
     scratch = role.rc.scratch
 
-    inserted_act = f'waiting to start {scratch.act_description.split("(")[-1][:-1]}'
+    inserted_act = f"waiting to start {scratch.act_description.split('(')[-1][:-1]}"
     end_time = datetime.datetime.strptime(reaction_mode[6:].strip(), "%B %d, %Y, %H:%M:%S")
     inserted_act_dur = (
         (end_time.minute + end_time.hour * 60) - (scratch.curr_time.minute + scratch.curr_time.hour * 60) + 1

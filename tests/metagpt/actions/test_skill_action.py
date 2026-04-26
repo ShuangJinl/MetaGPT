@@ -6,6 +6,7 @@
 @File    : test_skill_action.py
 @Desc    : Unit tests.
 """
+
 import pytest
 
 from metagpt.actions.skill_action import ArgumentsParingAction, SkillAction

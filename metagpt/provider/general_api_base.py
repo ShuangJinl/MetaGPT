@@ -69,10 +69,8 @@ class ApiType(Enum):
             )
 
 
-api_key_to_header = (
-    lambda api, key: {"Authorization": f"Bearer {key}"}
-    if api in (ApiType.OPEN_AI, ApiType.AZURE_AD)
-    else {"api-key": f"{key}"}
+api_key_to_header = lambda api, key: (
+    {"Authorization": f"Bearer {key}"} if api in (ApiType.OPEN_AI, ApiType.AZURE_AD) else {"api-key": f"{key}"}
 )
 
 
@@ -571,8 +569,7 @@ class APIRequestor:
     ) -> Tuple[Union[OpenAIResponse, AsyncGenerator[OpenAIResponse, None]], bool]:
         """Returns the response(s) and a bool indicating whether it is a stream."""
 
-    def _interpret_response_line(self, rbody: str, rcode: int, rheaders, stream: bool) -> OpenAIResponse:
-        ...
+    def _interpret_response_line(self, rbody: str, rcode: int, rheaders, stream: bool) -> OpenAIResponse: ...
 
 
 @asynccontextmanager

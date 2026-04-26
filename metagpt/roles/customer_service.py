@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : sales.py
 """
+
 from typing import Optional
 
 from pydantic import Field

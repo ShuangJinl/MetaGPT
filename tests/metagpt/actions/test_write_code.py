@@ -6,6 +6,7 @@
 @File    : test_write_code.py
 @Modifiled By: mashenquan, 2023-12-6. According to RFC 135
 """
+
 import json
 from pathlib import Path
 
@@ -36,7 +37,8 @@ async def test_write_code(context):
     context.src_workspace = context.git_repo.workdir / "writecode"
 
     coding_ctx = CodingContext(
-        filename="task_filename.py", design_doc=Document(content="设计一个名为'add'的函数，该函数接受两个整数作为输入，并返回它们的和。")
+        filename="task_filename.py",
+        design_doc=Document(content="设计一个名为'add'的函数，该函数接受两个整数作为输入，并返回它们的和。"),
     )
     doc = Document(content=coding_ctx.model_dump_json())
     write_code = WriteCode(i_context=doc, context=context)

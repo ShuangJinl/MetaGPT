@@ -6,19 +6,17 @@
 @File    : __init__.py
 """
 
-from metagpt.tools import libs  # this registers all tools
-from metagpt.tools.tool_registry import TOOL_REGISTRY
-from metagpt.configs.search_config import SearchEngineType
 from metagpt.configs.browser_config import WebBrowserEngineType
+from metagpt.configs.search_config import SearchEngineType
+from metagpt.tools import libs  # this registers all tools
 from metagpt.tools.academic_search import AcademicSearchTool, Paper, get_academic_search_tool
-
+from metagpt.tools.tool_registry import TOOL_REGISTRY
 
 _ = libs, TOOL_REGISTRY  # Avoid pre-commit error
 
 
 class SearchInterface:
-    async def asearch(self, *args, **kwargs):
-        ...
+    async def asearch(self, *args, **kwargs): ...
 
 
 __all__ = [

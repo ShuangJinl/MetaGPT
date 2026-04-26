@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : redis.py
 """
+
 from __future__ import annotations
 
 import traceback

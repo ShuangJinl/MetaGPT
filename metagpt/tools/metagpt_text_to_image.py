@@ -6,6 +6,7 @@
 @File    : metagpt_text_to_image.py
 @Desc    : MetaGPT Text-to-Image OAS3 api, which provides text-to-image functionality.
 """
+
 import base64
 from typing import Dict, List
 

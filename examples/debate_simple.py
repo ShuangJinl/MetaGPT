@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : debate_simple.py
 """
+
 import asyncio
 
 from metagpt.actions import Action

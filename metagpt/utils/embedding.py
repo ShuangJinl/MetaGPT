@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : embedding.py
 """
+
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 from metagpt.config2 import config

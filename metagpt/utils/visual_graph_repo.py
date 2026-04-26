@@ -6,6 +6,7 @@
 @File    : visualize_graph.py
 @Desc    : Visualization tool to visualize the class diagrams or sequence diagrams of the graph repository.
 """
+
 from __future__ import annotations
 
 import re

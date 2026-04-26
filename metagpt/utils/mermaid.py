@@ -5,6 +5,7 @@
 @Author  : alexanderwu alitrack
 @File    : mermaid.py
 """
+
 import asyncio
 import os
 import re

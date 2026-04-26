@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_search_engine_meilisearch.py
 """
+
 import subprocess
 import time
 

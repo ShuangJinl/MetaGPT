@@ -1,4 +1,5 @@
 """BM25 retriever."""
+
 from pathlib import Path
 from typing import Callable, Optional
 

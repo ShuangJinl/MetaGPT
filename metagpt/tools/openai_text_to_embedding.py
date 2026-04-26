@@ -7,6 +7,7 @@
 @Desc    : OpenAI Text-to-Embedding OAS3 api, which provides text-to-embedding functionality.
             For more details, checkout: `https://platform.openai.com/docs/api-reference/embeddings/object`
 """
+
 from typing import List
 
 import aiohttp

@@ -4,6 +4,7 @@
 @Author  :   orange-crow
 @File    :   write_analysis_code.py
 """
+
 from __future__ import annotations
 
 from metagpt.actions import Action

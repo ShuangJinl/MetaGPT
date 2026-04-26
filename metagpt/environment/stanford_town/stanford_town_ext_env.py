@@ -30,7 +30,7 @@ class StanfordTownExtEnv(ExtEnv):
     maze_height: int = Field(default=100, description="maze map height")
     sq_tile_size: int = Field(default=32, description="the pixel height/width of a tile")
     special_constraint: str = Field(
-        default="", description="a string description of any relevant special constraints " "the world might have"
+        default="", description="a string description of any relevant special constraints the world might have"
     )
     tiles: list[list[dict]] = Field(default=[])
     address_tiles: dict[str, set] = Field(default=dict())
@@ -182,22 +182,22 @@ class StanfordTownExtEnv(ExtEnv):
             for j in range(maze_width):
                 addresses = []
                 if tiles[i][j]["sector"]:
-                    add = f'{tiles[i][j]["world"]}:'
-                    add += f'{tiles[i][j]["sector"]}'
+                    add = f"{tiles[i][j]['world']}:"
+                    add += f"{tiles[i][j]['sector']}"
                     addresses += [add]
                 if tiles[i][j]["arena"]:
-                    add = f'{tiles[i][j]["world"]}:'
-                    add += f'{tiles[i][j]["sector"]}:'
-                    add += f'{tiles[i][j]["arena"]}'
+                    add = f"{tiles[i][j]['world']}:"
+                    add += f"{tiles[i][j]['sector']}:"
+                    add += f"{tiles[i][j]['arena']}"
                     addresses += [add]
                 if tiles[i][j]["game_object"]:
-                    add = f'{tiles[i][j]["world"]}:'
-                    add += f'{tiles[i][j]["sector"]}:'
-                    add += f'{tiles[i][j]["arena"]}:'
-                    add += f'{tiles[i][j]["game_object"]}'
+                    add = f"{tiles[i][j]['world']}:"
+                    add += f"{tiles[i][j]['sector']}:"
+                    add += f"{tiles[i][j]['arena']}:"
+                    add += f"{tiles[i][j]['game_object']}"
                     addresses += [add]
                 if tiles[i][j]["spawning_location"]:
-                    add = f'<spawn_loc>{tiles[i][j]["spawning_location"]}'
+                    add = f"<spawn_loc>{tiles[i][j]['spawning_location']}"
                     addresses += [add]
 
                 for add in addresses:

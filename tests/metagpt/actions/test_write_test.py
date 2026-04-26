@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_write_test.py
 """
+
 import pytest
 
 from metagpt.actions.write_test import WriteTest

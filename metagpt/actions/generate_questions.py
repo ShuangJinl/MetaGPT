@@ -3,6 +3,7 @@
 """
 @File    : generate_questions.py
 """
+
 from metagpt.actions import Action
 from metagpt.actions.action_node import ActionNode
 

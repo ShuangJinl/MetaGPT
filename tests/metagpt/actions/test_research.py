@@ -21,8 +21,7 @@ async def test_collect_links(mocker, search_engine_mocker, context):
 
         elif "Provide up to 4 queries related to your research topic" in prompt:
             return (
-                '["MetaGPT use cases", "The roadmap of MetaGPT", '
-                '"The function of MetaGPT", "What llm MetaGPT support"]'
+                '["MetaGPT use cases", "The roadmap of MetaGPT", "The function of MetaGPT", "What llm MetaGPT support"]'
             )
         elif "sort the remaining search results" in prompt:
             return "[1,2]"
@@ -112,9 +111,7 @@ async def mock_collect_links_llm_ask(self, prompt: str, system_msgs):
         return '["metagpt", "llm"]'
 
     elif "Provide up to 4 queries related to your research topic" in prompt:
-        return (
-            '["MetaGPT use cases", "The roadmap of MetaGPT", ' '"The function of MetaGPT", "What llm MetaGPT support"]'
-        )
+        return '["MetaGPT use cases", "The roadmap of MetaGPT", "The function of MetaGPT", "What llm MetaGPT support"]'
     elif "sort the remaining search results" in prompt:
         return "[1,2]"
 

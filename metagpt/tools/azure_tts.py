@@ -6,6 +6,7 @@
 @File    : azure_tts.py
 @Modified by: mashenquan, 2023/8/17. Azure TTS OAS3 api, which provides text-to-speech functionality
 """
+
 import base64
 from pathlib import Path
 from uuid import uuid4

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_software_company.py
 """
+
 import pytest
 from typer.testing import CliRunner
 

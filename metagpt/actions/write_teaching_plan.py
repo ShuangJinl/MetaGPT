@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : write_teaching_plan.py
 """
+
 from typing import Optional
 
 from metagpt.actions import Action

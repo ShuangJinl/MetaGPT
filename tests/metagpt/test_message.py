@@ -6,6 +6,7 @@
 @File    : test_message.py
 @Modified By: mashenquan, 2023-11-1. Modify coding style.
 """
+
 import pytest
 
 from metagpt.schema import AIMessage, Message, SystemMessage, UserMessage

@@ -6,11 +6,12 @@
 @File    : __init__.py
 @Desc    : The implementation of RFC243. https://deepwisdom.feishu.cn/wiki/QobGwPkImijoyukBUKHcrYetnBb
 """
+
 import json
 import uuid
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Union, List
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 

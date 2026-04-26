@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_openai_text_to_image.py
 """
+
 import base64
 
 import openai

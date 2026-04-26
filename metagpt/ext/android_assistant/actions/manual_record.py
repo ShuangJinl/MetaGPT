@@ -130,8 +130,7 @@ class ManualRecord(Action):
                 log_str = f"long_press({int(user_input)}):::{elem_list[int(user_input) - 1].uid}\n"
             elif user_input.lower() == ActionOp.SWIPE.value:
                 logger.info(
-                    "What is the direction of your swipe? Choose one from the following options:\n"
-                    "up, down, left, right"
+                    "What is the direction of your swipe? Choose one from the following options:\nup, down, left, right"
                 )
                 user_input = ""
                 while (

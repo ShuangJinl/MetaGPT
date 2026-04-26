@@ -21,6 +21,7 @@ Example:
 This script uses the 'fire' library to create a command-line interface. It generates docstrings for the given Python code using
 the specified docstring style and adds them to the code.
 """
+
 from __future__ import annotations
 
 import ast

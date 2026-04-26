@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : context_mixin.py
 """
+
 from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator

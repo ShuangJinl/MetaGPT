@@ -8,6 +8,7 @@
         1. Divide the context into three components: legacy code, unit test code, and console log.
         2. According to Section 2.2.3.1 of RFC 135, replace file data in the message with the file name.
 """
+
 import re
 from typing import Optional
 

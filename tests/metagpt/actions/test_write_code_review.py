@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_write_code_review.py
 """
+
 import pytest
 
 from metagpt.actions.write_code_review import WriteCodeReview
@@ -19,7 +20,9 @@ def add(a, b):
     return a + 
 """
     coding_context = CodingContext(
-        filename="math.py", design_doc=Document(content="编写一个从a加b的函数，返回a+b"), code_doc=Document(content=code)
+        filename="math.py",
+        design_doc=Document(content="编写一个从a加b的函数，返回a+b"),
+        code_doc=Document(content=code),
     )
 
     await WriteCodeReview(i_context=coding_context, context=context).run()

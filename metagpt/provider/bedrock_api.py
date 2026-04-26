@@ -65,7 +65,7 @@ class BedrockLLM(BaseLLM):
         # only output text-generation models
         response = client.list_foundation_models(byOutputModality="TEXT")
         summaries = [
-            f'{summary["modelId"]:50} Support Streaming:{summary["responseStreamingSupported"]}'
+            f"{summary['modelId']:50} Support Streaming:{summary['responseStreamingSupported']}"
             for summary in response["modelSummaries"]
         ]
         logger.info("\n" + "\n".join(summaries))

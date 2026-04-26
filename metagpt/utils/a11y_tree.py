@@ -1,5 +1,5 @@
-"""See https://github.com/web-arena-x/webarena
-"""
+"""See https://github.com/web-arena-x/webarena"""
+
 from __future__ import annotations
 
 import re
@@ -236,7 +236,7 @@ def parse_accessibility_tree(accessibility_tree):
                 try:
                     if property["name"] in IGNORED_ACTREE_PROPERTIES:
                         continue
-                    properties.append(f'{property["name"]}: {property["value"]["value"]}')
+                    properties.append(f"{property['name']}: {property['value']['value']}")
                 except KeyError:
                     pass
 

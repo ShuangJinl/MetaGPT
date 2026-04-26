@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_openapi_v3_hello.py
 """
+
 import asyncio
 import subprocess
 from pathlib import Path

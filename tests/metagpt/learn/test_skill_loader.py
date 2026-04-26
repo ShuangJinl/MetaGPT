@@ -6,6 +6,7 @@
 @File    : test_skill_loader.py
 @Desc    : Unit tests.
 """
+
 from pathlib import Path
 
 import pytest

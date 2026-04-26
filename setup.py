@@ -1,4 +1,5 @@
 """Setup script for MetaGPT."""
+
 import subprocess
 from pathlib import Path
 

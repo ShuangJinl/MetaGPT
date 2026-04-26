@@ -24,7 +24,9 @@ DOC_PATH = EXAMPLE_DATA_PATH / "rag_bm/summary_writer.txt"
 QUESTION = "2023年7月20日，应急管理部、财政部联合下发《因灾倒塌、损坏住房恢复重建救助工作规范》的通知，规范倒损住房恢复重建救助相关工作。"
 
 TRAVEL_DOC_PATH = EXAMPLE_DATA_PATH / "rag_bm/documents.txt"
-TRAVEL_QUESTION = "国家卫生健康委在2023年7月28日开展的“启明行动”是为了防控哪个群体的哪种健康问题，并请列出活动发布的指导性文件名称。"
+TRAVEL_QUESTION = (
+    "国家卫生健康委在2023年7月28日开展的“启明行动”是为了防控哪个群体的哪种健康问题，并请列出活动发布的指导性文件名称。"
+)
 
 DATASET_PATH = EXAMPLE_DATA_PATH / "rag_bm/test.json"
 SAVE_PATH = EXAMPLE_DATA_PATH / "rag_bm/result.json"
@@ -176,7 +178,7 @@ class RAGExample:
 
     @staticmethod
     def _print_title(title):
-        logger.info(f"{'#'*30} {title} {'#'*30}")
+        logger.info(f"{'#' * 30} {title} {'#' * 30}")
 
     @staticmethod
     def _print_result(result, state="Retrieve"):

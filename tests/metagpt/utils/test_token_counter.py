@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_token_counter.py
 """
+
 import pytest
 
 from metagpt.utils.token_counter import count_message_tokens, count_output_tokens

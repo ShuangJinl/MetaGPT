@@ -145,7 +145,7 @@ def reflection_trigger(role: "STRole"):
         True if we are running a new reflection.
         False otherwise.
     """
-    logger.info(f"{role.scratch.name} role.scratch.importance_trigger_curr:: {role.scratch.importance_trigger_curr}"),
+    (logger.info(f"{role.scratch.name} role.scratch.importance_trigger_curr:: {role.scratch.importance_trigger_curr}"),)
 
     if role.scratch.importance_trigger_curr <= 0 and [] != role.memory.event_list + role.memory.thought_list:
         return True

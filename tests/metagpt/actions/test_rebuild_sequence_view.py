@@ -6,6 +6,7 @@
 @File    : test_rebuild_sequence_view.py
 @Desc    : Unit tests for reconstructing the sequence diagram from a source code project.
 """
+
 from pathlib import Path
 
 import pytest

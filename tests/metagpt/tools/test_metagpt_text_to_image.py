@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_metagpt_text_to_image.py
 """
+
 import base64
 from unittest.mock import AsyncMock
 

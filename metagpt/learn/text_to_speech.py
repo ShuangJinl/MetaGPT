@@ -6,6 +6,7 @@
 @File    : text_to_speech.py
 @Desc    : Text-to-Speech skill, which provides text-to-speech functionality
 """
+
 from typing import Optional
 
 from metagpt.config2 import Config

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_chromadb_store.py
 """
+
 from metagpt.document_store.chromadb_store import ChromaStore
 
 

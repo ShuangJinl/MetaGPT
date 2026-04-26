@@ -5,6 +5,7 @@
 @Author  : DevXiaolan
 @File    : prepare_interview.py
 """
+
 from metagpt.actions import Action
 from metagpt.actions.action_node import ActionNode
 

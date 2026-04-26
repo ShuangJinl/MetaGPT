@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : config2.py
 """
+
 import os
 from pathlib import Path
 from typing import Dict, Iterable, List, Literal, Optional

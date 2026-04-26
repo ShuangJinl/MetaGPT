@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : search_config.py
 """
+
 from enum import Enum
 from typing import Callable, Optional
 

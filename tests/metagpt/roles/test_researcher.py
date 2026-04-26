@@ -56,7 +56,7 @@ def test_write_report(mocker, context):
             researcher.RESEARCH_PATH = Path(dirname)
             content = "# Research Report"
             researcher.Researcher(context=context).write_report(topic, content)
-            assert (researcher.RESEARCH_PATH / f"{i+1}. metagpt.md").read_text().startswith("# Research Report")
+            assert (researcher.RESEARCH_PATH / f"{i + 1}. metagpt.md").read_text().startswith("# Research Report")
 
 
 @pytest.mark.asyncio

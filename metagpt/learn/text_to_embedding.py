@@ -6,6 +6,7 @@
 @File    : text_to_embedding.py
 @Desc    : Text-to-Embedding skill, which provides text-to-embedding functionality.
 """
+
 from typing import Optional
 
 from metagpt.config2 import Config

@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_metagpt_llm.py
 """
+
 from metagpt.provider.metagpt_api import MetaGPTLLM
 from tests.metagpt.provider.mock_llm_config import mock_llm_config
 

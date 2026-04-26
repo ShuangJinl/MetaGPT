@@ -14,6 +14,7 @@
             indicates that further reasoning cannot continue.
 
 """
+
 from enum import Enum
 from pathlib import Path
 from typing import Optional

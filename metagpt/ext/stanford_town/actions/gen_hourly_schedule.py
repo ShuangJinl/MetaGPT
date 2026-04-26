@@ -103,8 +103,7 @@ class GenHourlySchedule(STAction):
         self.fail_default_resp = self._func_fail_default_resp()
         output = await self._run_gpt35_max_tokens(prompt, max_tokens=50)
         logger.info(
-            f"Role: {role.name} _generate_schedule_for_given_hour prompt_input: {prompt_input_str}, "
-            f"output: {output}"
+            f"Role: {role.name} _generate_schedule_for_given_hour prompt_input: {prompt_input_str}, output: {output}"
         )
         return output
 

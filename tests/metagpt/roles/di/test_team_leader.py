@@ -168,6 +168,6 @@ async def test_reply_to_human(env):
 
     # Verify response contains project status
     response = tl_responses[0].content
-    assert any(
-        keyword in response.lower() for keyword in ["progress", "status", "working"]
-    ), "Response should contain project status information"
+    assert any(keyword in response.lower() for keyword in ["progress", "status", "working"]), (
+        "Response should contain project status information"
+    )

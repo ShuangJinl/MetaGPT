@@ -1,4 +1,5 @@
 """RAG LLM."""
+
 import asyncio
 from typing import Any
 
@@ -38,7 +39,7 @@ class RAGLLM(CustomLLM):
         num_output: int = -1,
         model_name: str = "",
         *args,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         if context_window < 0:
@@ -73,8 +74,7 @@ class RAGLLM(CustomLLM):
         return CompletionResponse(text=text)
 
     @llm_completion_callback()
-    def stream_complete(self, prompt: str, **kwargs: Any) -> CompletionResponseGen:
-        ...
+    def stream_complete(self, prompt: str, **kwargs: Any) -> CompletionResponseGen: ...
 
 
 def get_rag_llm(model_infer: BaseLLM = None) -> RAGLLM:

@@ -6,7 +6,6 @@
 @File    : sales.py
 """
 
-
 SALES_ASSISTANT = """You are a sales assistant helping your sales agent to determine which stage of a sales conversation should the agent move to, or stay at.
 Following '===' is the conversation history. 
 Use this conversation history to make your decision.

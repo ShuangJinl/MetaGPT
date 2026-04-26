@@ -14,6 +14,7 @@ llm:
   pricing_plan: "doubao-lite"
 ```
 """
+
 from typing import Optional, Union
 
 from pydantic import BaseModel

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : mock_markdown.py
 """
+
 import json
 
 from metagpt.actions import UserRequirement, WriteDesign, WritePRD, WriteTasks

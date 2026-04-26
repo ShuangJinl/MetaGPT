@@ -109,8 +109,8 @@ class NewDecompSchedule(STAction):
             for_time = start_time_hour
             for i in main_act_dur:
                 original_plan += (
-                    f'{for_time.strftime("%H:%M")} ~ '
-                    f'{(for_time + datetime.timedelta(minutes=int(i[1]))).strftime("%H:%M")} -- ' + i[0]
+                    f"{for_time.strftime('%H:%M')} ~ "
+                    f"{(for_time + datetime.timedelta(minutes=int(i[1]))).strftime('%H:%M')} -- " + i[0]
                 )
                 original_plan += "\n"
                 for_time += datetime.timedelta(minutes=int(i[1]))
@@ -119,8 +119,8 @@ class NewDecompSchedule(STAction):
             for_time = start_time_hour
             for count, i in enumerate(truncated_act_dur):
                 new_plan_init += (
-                    f'{for_time.strftime("%H:%M")} ~ '
-                    f'{(for_time + datetime.timedelta(minutes=int(i[1]))).strftime("%H:%M")} -- ' + i[0]
+                    f"{for_time.strftime('%H:%M')} ~ "
+                    f"{(for_time + datetime.timedelta(minutes=int(i[1]))).strftime('%H:%M')} -- " + i[0]
                 )
                 new_plan_init += "\n"
                 if count < len(truncated_act_dur) - 1:

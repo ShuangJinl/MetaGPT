@@ -5,6 +5,7 @@
 @Author  : fisherdeng
 @File    : test_generate_questions.py
 """
+
 import pytest
 
 from metagpt.actions.prepare_interview import PrepareInterview

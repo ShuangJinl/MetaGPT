@@ -1,12 +1,10 @@
 from metagpt.rag.retrievers.base import ModifiableRAGRetriever, PersistableRAGRetriever
 
 
-class SubModifiableRAGRetriever(ModifiableRAGRetriever):
-    ...
+class SubModifiableRAGRetriever(ModifiableRAGRetriever): ...
 
 
-class SubPersistableRAGRetriever(PersistableRAGRetriever):
-    ...
+class SubPersistableRAGRetriever(PersistableRAGRetriever): ...
 
 
 class TestModifiableRAGRetriever:

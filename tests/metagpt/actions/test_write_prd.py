@@ -6,6 +6,7 @@
 @File    : test_write_prd.py
 @Modified By: mashenquan, 2023-11-1. According to Chapter 2.2.1 and 2.2.2 of RFC 116, replace `handle` with `run`.
 """
+
 import uuid
 from pathlib import Path
 

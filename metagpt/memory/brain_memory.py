@@ -8,6 +8,7 @@
 @Modified By: mashenquan, 2023/9/4. + redis memory cache.
 @Modified By: mashenquan, 2023/12/25. Simplify Functionality.
 """
+
 import json
 import re
 from typing import Dict, List, Optional

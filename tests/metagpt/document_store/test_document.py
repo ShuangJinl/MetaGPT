@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_document.py
 """
+
 import pytest
 
 from metagpt.const import METAGPT_ROOT

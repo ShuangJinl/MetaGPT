@@ -6,6 +6,7 @@
 @File    : document.py
 @Desc    : Classes and Operations Related to Files in the File System.
 """
+
 from enum import Enum
 from pathlib import Path
 from typing import Optional, Union

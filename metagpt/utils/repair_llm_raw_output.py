@@ -58,7 +58,7 @@ def repair_special_character_missing(output: str, req_key: str = "[/CONTENT]") -
         if req_key_pure in output and appear_cnt > 1:
             # req_key with special_character usually in the tail side
             ridx = output.rfind(req_key_pure)
-            output = f"{output[:ridx]}{req_key}{output[ridx + len(req_key_pure):]}"
+            output = f"{output[:ridx]}{req_key}{output[ridx + len(req_key_pure) :]}"
             logger.info(f"repair_special_character_missing: {sc} in {req_key_pure} as position {ridx}")
 
     return output

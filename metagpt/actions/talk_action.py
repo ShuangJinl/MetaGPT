@@ -6,6 +6,7 @@
 @File    : talk_action.py
 @Desc    : Act as it’s a talk
 """
+
 from typing import Optional
 
 from metagpt.actions import Action

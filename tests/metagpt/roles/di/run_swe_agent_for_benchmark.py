@@ -174,7 +174,7 @@ async def async_main(args):
         # switch to a new logger file
         logger.remove()
         logger.add(sys.stderr, level="INFO")
-        logger.add(swe_result_dir / "logs" / f"{index+1}_{instance['instance_id']}.log", level="DEBUG")
+        logger.add(swe_result_dir / "logs" / f"{index + 1}_{instance['instance_id']}.log", level="DEBUG")
         await run(instance, swe_result_dir, args)
 
 
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     # 添加参数
     swe_result_dir = (
         DEFAULT_WORKSPACE_ROOT
-        / f"result_{config.llm.model.replace('/', '_')}_start_time_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S') }"
+        / f"result_{config.llm.model.replace('/', '_')}_start_time_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}"
     )
     test_repo_dir = TEST_REPO_DIR.absolute()
     swe_result_dir = swe_result_dir.absolute()

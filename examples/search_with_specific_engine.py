@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-"""
+""" """
+
 import asyncio
 
 from metagpt.config2 import Config

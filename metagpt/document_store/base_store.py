@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : base_store.py
 """
+
 from abc import ABC, abstractmethod
 from pathlib import Path
 

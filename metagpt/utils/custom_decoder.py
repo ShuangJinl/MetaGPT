@@ -279,7 +279,7 @@ class CustomDecoder(json.JSONDecoder):
         parse_int=None,
         parse_constant=None,
         strict=True,
-        object_pairs_hook=None
+        object_pairs_hook=None,
     ):
         super().__init__(
             object_hook=object_hook,

@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : search_engine_serpapi.py
 """
+
 import json
 import warnings
 from typing import Any, Dict, Optional

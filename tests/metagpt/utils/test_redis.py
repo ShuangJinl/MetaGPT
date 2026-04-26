@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_redis.py
 """
+
 from unittest.mock import AsyncMock
 
 import pytest

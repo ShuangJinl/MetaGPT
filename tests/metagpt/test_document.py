@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_document.py
 """
+
 from metagpt.config2 import config
 from metagpt.document import Repo
 from metagpt.logs import logger

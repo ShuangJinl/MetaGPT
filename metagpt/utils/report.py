@@ -43,7 +43,7 @@ class BlockType(str, Enum):
 
 
 END_MARKER_NAME = "end_marker"
-END_MARKER_VALUE = "\x18\x19\x1B\x18\n"
+END_MARKER_VALUE = "\x18\x19\x1b\x18\n"
 
 
 class ResourceReporter(BaseModel):

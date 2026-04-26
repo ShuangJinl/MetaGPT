@@ -6,6 +6,7 @@
 @File    : test_prepare_documents.py
 @Desc: Unit test for prepare_documents.py
 """
+
 import pytest
 
 from metagpt.actions.prepare_documents import PrepareDocuments

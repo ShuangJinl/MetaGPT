@@ -7,6 +7,7 @@
 @Desc    : Wrapper for GitRepository and FileRepository of project.
     Implementation of Chapter 4.6 of https://deepwisdom.feishu.cn/wiki/CUK4wImd7id9WlkQBNscIe9cnqh
 """
+
 from __future__ import annotations
 
 from pathlib import Path

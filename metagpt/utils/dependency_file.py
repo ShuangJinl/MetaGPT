@@ -6,6 +6,7 @@
 @File    : dependency_file.py
 @Desc: Implementation of the dependency file described in Section 2.2.3.2 of RFC 135.
 """
+
 from __future__ import annotations
 
 import json

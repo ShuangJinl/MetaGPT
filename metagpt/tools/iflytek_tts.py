@@ -6,6 +6,7 @@
 @File    : iflytek_tts.py
 @Desc    : iFLYTEK TTS OAS3 api, which provides text-to-speech functionality
 """
+
 import base64
 import hashlib
 import hmac

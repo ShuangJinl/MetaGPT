@@ -5,6 +5,7 @@
 @Author  : mashenquan
 @File    : test_s3.py
 """
+
 import uuid
 from pathlib import Path
 

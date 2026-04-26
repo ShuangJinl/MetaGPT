@@ -95,12 +95,10 @@ class WebBrowserEngine(BaseModel):
         return cls(**data, **kwargs)
 
     @overload
-    async def run(self, url: str, per_page_timeout: float = None) -> WebPage:
-        ...
+    async def run(self, url: str, per_page_timeout: float = None) -> WebPage: ...
 
     @overload
-    async def run(self, url: str, *urls: str, per_page_timeout: float = None) -> list[WebPage]:
-        ...
+    async def run(self, url: str, *urls: str, per_page_timeout: float = None) -> list[WebPage]: ...
 
     async def run(self, url: str, *urls: str, per_page_timeout: float = None) -> WebPage | list[WebPage]:
         """Runs the browser engine to load one or more web pages.

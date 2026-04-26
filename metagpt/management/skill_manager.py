@@ -6,6 +6,7 @@
 @File    : skill_manager.py
 @Modified By: mashenquan, 2023/8/20. Remove useless `llm`
 """
+
 from metagpt.actions import Action
 from metagpt.const import PROMPT_PATH
 from metagpt.document_store.chromadb_store import ChromaStore

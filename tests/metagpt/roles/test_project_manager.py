@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : test_project_manager.py
 """
+
 import pytest
 
 from metagpt.logs import logger

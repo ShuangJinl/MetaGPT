@@ -3,7 +3,7 @@ Filename: MetaGPT/examples/werewolf_game/evals/eval.py
 Created Date: Oct 18, 2023
 Updated Date: Oct 24, 2023
 Author: [Aria](https://github.com/ariafyy)
-Info: eval the Voting Accuracy Rate of non_werewolves and Vote Difficulity 
+Info: eval the Voting Accuracy Rate of non_werewolves and Vote Difficulity
 """
 
 import glob

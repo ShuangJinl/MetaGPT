@@ -6,6 +6,7 @@
 @File    : memory.py
 @Modified By: mashenquan, 2023-11-1. According to RFC 116: Updated the type of index key.
 """
+
 from collections import defaultdict
 from typing import DefaultDict, Iterable, Optional, Set
 

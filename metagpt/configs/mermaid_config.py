@@ -5,6 +5,7 @@
 @Author  : alexanderwu
 @File    : mermaid_config.py
 """
+
 from typing import Literal
 
 from metagpt.utils.yaml_model import YamlModel

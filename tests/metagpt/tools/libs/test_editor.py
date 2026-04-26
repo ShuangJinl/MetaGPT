@@ -444,7 +444,7 @@ def test_print_window_internal(temp_file_path):
     window = 2
 
     result = editor._print_window(temp_file_path, current_line, window)
-    expected = "(48 more lines above)\n" "049|Line `49`\n" "050|Line `50`\n" "051|Line `51`\n" "(49 more lines below)"
+    expected = "(48 more lines above)\n049|Line `49`\n050|Line `50`\n051|Line `51`\n(49 more lines below)"
     assert result == expected
 
 
@@ -788,7 +788,10 @@ async def test_index_repo():
             "What is the short name of the company in this document?",
             TEST_DATA_PATH / "pdf/company_stock_code.pdf",
         ),
-        ("平安创新推出中国版的什么模式，将差异化的医疗健康服务与作为支付方的金融业务无缝结合", TEST_DATA_PATH / "pdf/9112674.pdf"),
+        (
+            "平安创新推出中国版的什么模式，将差异化的医疗健康服务与作为支付方的金融业务无缝结合",
+            TEST_DATA_PATH / "pdf/9112674.pdf",
+        ),
         (
             "What principle is introduced by the author to explain the conditions necessary for the emergence of complexity?",
             TEST_DATA_PATH / "pdf/9781444323498.ch2_1.pdf",

@@ -10,8 +10,7 @@ from metagpt.rag.factories.llm import RAGLLM, get_rag_llm
 
 
 class MockLLM(BaseLLM):
-    def __init__(self, config: LLMConfig):
-        ...
+    def __init__(self, config: LLMConfig): ...
 
     async def _achat_completion(self, messages: list[dict], timeout=USE_CONFIG_TIMEOUT):
         """_achat_completion implemented by inherited class"""

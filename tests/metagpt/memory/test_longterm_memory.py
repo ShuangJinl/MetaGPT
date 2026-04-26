@@ -4,7 +4,6 @@
 @Desc   : unittest of `metagpt/memory/longterm_memory.py`
 """
 
-
 import pytest
 
 from metagpt.actions import UserRequirement

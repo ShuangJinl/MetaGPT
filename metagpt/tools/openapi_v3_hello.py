@@ -12,6 +12,7 @@
         -H 'Content-Type: application/json' \
         -d '{}'
 """
+
 from pathlib import Path
 
 import connexion
