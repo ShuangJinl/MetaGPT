@@ -320,7 +320,7 @@ class RoleZero(Role):
             if not has_todo:
                 break
             # act
-            logger.debug(f"{self._setting}: {self.rc.state=}, will do {self.rc.todo}")
+            logger.debug(f"{self._setting}: self.rc.state={self.rc.state}, will do {self.rc.todo}")
             rsp = await self._act()
             actions_taken += 1
 

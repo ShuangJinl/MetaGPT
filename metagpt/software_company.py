@@ -13,6 +13,7 @@ from metagpt.config2 import config as metagpt_config
 from metagpt.context import Context
 from metagpt.const import CONFIG_ROOT
 from metagpt.intent_router import extract_paper_research_topic, looks_like_paper_research_topic, should_trigger_literature_review
+from metagpt.roles.paper_researcher import PaperResearcher
 
 app = typer.Typer(add_completion=False, pretty_exceptions_show_locals=False, invoke_without_command=True)
 
@@ -54,6 +55,26 @@ def _ensure_main_event_loop():
         asyncio.set_event_loop(loop)
 
 
+def _extract_paper_topic_from_idea(idea: str) -> str:
+    """从 idea 中提取论文研究主题"""
+    normalized = idea.lower().strip()
+    import re
+    for pattern in (
+        r"topic\s+is\s+(?P<topic>.+)$",
+        r"主题[是为:]*(?P<topic>.+)$",
+        r"关于(?P<topic>.+?)的论文",
+        r"搜索(?P<topic>.+?)的文献",
+    ):
+        match = re.search(pattern, normalized)
+        if match and match.group("topic"):
+            return match.group("topic").strip()
+    if "搜索" in normalized and "文献" in normalized:
+        for kw in ("的文献", "搜索", "文献"):
+            normalized = normalized.replace(kw, "")
+        return normalized.strip()
+    return idea.strip()
+
+
 def generate_repo(
     idea,
     investment=3.0,
@@ -89,25 +110,15 @@ def generate_repo(
     if not recover_path:
         company = Team(context=ctx)
         if collaboration_mode == "paper":
-            product_manager = ProductManager(
-                instruction=f"{PAPER_MODE_COMMAND_CONSTRAINT}\n\n{PAPER_MODE_PM_INSTRUCTION}",
-                tools=["RoleZero", "Browser", "Editor"],
-            )
-            architect = Architect(
-                instruction=f"{PAPER_MODE_COMMAND_CONSTRAINT}\n\n{PAPER_MODE_ARCHITECT_INSTRUCTION}",
-            )
-            hire_roles = [TeamLeader(), product_manager, architect, DataAnalyst()]
+            _ensure_main_event_loop()
+            research_topic = _extract_paper_topic_from_idea(idea)
+            researcher = PaperResearcher()
+            researcher.set_context(ctx)
+            asyncio.run(researcher.run(topic=research_topic, save_report=True))
+            return researcher.get_research_path()
         else:
             hire_roles = [TeamLeader(), ProductManager(), Architect(), Engineer2(), DataAnalyst()]
-        company.hire(hire_roles)
-
-        # if implement or code_review:
-        #     company.hire([Engineer(n_borg=5, use_code_review=code_review)])
-        #
-        # if run_tests:
-        #     company.hire([QaEngineer()])
-        #     if n_round < 8:
-        #         n_round = 8  # If `--run-tests` is enabled, at least 8 rounds are required to run all QA actions.
+            company.hire(hire_roles)
     else:
         stg_path = Path(recover_path)
         if not stg_path.exists() or not str(stg_path).endswith("team"):

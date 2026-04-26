@@ -198,3 +198,7 @@ metagpt/ext/sela/results/*
 
 metagpt/ext/aflow/data
 metagpt/ext/aflow/scripts/optimized
+
+# Paper research local test files (not for upstream)
+metagpt/ext/paper_research/example_paper_research.py
+metagpt/ext/paper_research/test_paper_research.py

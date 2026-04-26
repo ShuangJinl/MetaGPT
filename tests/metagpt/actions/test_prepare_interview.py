@@ -15,7 +15,7 @@ from metagpt.logs import logger
 async def test_prepare_interview(context):
     action = PrepareInterview(context=context)
     rsp = await action.run("I just graduated and hope to find a job as a Python engineer")
-    logger.info(f"{rsp.content=}")
+    logger.info(f"rsp.content={rsp.content}")
 
     assert "Questions" in rsp.content
     assert "1." in rsp.content

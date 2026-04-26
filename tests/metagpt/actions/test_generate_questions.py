@@ -23,7 +23,7 @@ msg = """
 async def test_generate_questions(context):
     action = GenerateQuestions(context=context)
     rsp = await action.run(msg)
-    logger.info(f"{rsp.content=}")
+    logger.info(f"rsp.content={rsp.content}")
 
     assert "Questions" in rsp.content
     assert "1." in rsp.content

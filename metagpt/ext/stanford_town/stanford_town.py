@@ -33,7 +33,7 @@ class StanfordTown(Team):
         """Run company until target round or no money"""
         while n_round > 0:
             n_round -= 1
-            logger.debug(f"{n_round=}")
+            logger.debug(f"n_round={n_round}")
             self._check_balance()
             await self.env.run()
 

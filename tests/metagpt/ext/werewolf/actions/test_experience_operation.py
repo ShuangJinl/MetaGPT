@@ -126,7 +126,7 @@ class TestActualRetrieve:
         action = RetrieveExperiences(collection_name=self.collection_name)
         if action.engine:
             all_experiences = action.engine.retriever._index._vector_store._collection.get()
-            logger.info(f"{len(all_experiences['metadatas'])=}")
+            logger.info(f"len(all_experiences['metadatas'])={len(all_experiences['metadatas'])}")
 
     @pytest.mark.asyncio
     async def test_retrieve_werewolf_experience(self):

@@ -14,6 +14,7 @@ RankPapers - 学术论文排序 Action
 @File    : rank_papers.py
 """
 
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -143,8 +144,8 @@ class RankPapers(Action):
             if paper.citation_count > 0:
                 citation_score = min(1.0, (paper.citation_count ** 0.5) / 100)
             
-            # 时效性分数（假设当前年份为 2026）
-            years_ago = 2026 - paper.year
+            # 时效性分数（使用当前年份）
+            years_ago = datetime.now().year - paper.year
             recency_score = max(0, 1.0 - (years_ago * 0.05))
             
             # 影响力分数（处理除零情况）
@@ -363,7 +364,7 @@ class RankPapers(Action):
         for paper in papers:
             # 归一化分数
             citation_score = min(1.0, (paper.citation_count ** 0.5) / 100) if paper.citation_count > 0 else 0
-            years_ago = 2026 - paper.year
+            years_ago = datetime.now().year - paper.year
             recency_score = max(0, 1.0 - (years_ago * 0.05))
             
             # Abstract 长度作为替代指标

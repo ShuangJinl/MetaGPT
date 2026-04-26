@@ -128,8 +128,8 @@ class RunCode(Action):
         elif self.i_context.mode == "text":
             outs, errs = await self.run_text(code=self.i_context.code)
 
-        logger.info(f"{outs=}")
-        logger.info(f"{errs=}")
+        logger.info(f"outs={outs}")
+        logger.info(f"errs={errs}")
 
         context = TEMPLATE_CONTEXT.format(
             code=self.i_context.code,

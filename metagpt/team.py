@@ -133,6 +133,6 @@ class Team(BaseModel):
             self._check_balance()
             await self.env.run()
 
-            logger.debug(f"max {n_round=} left.")
+            logger.debug(f"max n_round={n_round} left.")
         self.env.archive(auto_archive)
         return self.env.history

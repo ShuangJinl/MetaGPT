@@ -66,7 +66,7 @@ class Teacher(Role):
             await self._think()
             if self.rc.todo is None:
                 break
-            logger.debug(f"{self._setting}: {self.rc.state=}, will do {self.rc.todo}")
+            logger.debug(f"{self._setting}: self.rc.state={self.rc.state}, will do {self.rc.todo}")
             msg = await self._act()
             if ret.content != "":
                 ret.content += "\n\n\n"

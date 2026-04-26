@@ -366,15 +366,15 @@ class Role(BaseRole, SerializationMixin, ContextMixin, BaseModel):
 
         next_state = await self.llm.aask(prompt)
         next_state = extract_state_value_from_output(next_state)
-        logger.debug(f"{prompt=}")
+        logger.debug(f"prompt={prompt}")
 
         if (not next_state.isdigit() and next_state != "-1") or int(next_state) not in range(-1, len(self.states)):
-            logger.warning(f"Invalid answer of state, {next_state=}, will be set to -1")
+            logger.warning(f"Invalid answer of state, next_state={next_state}, will be set to -1")
             next_state = -1
         else:
             next_state = int(next_state)
             if next_state == -1:
-                logger.info(f"End actions with {next_state=}")
+                logger.info(f"End actions with next_state={next_state}")
         self._set_state(next_state)
         return True
 
@@ -464,7 +464,7 @@ class Role(BaseRole, SerializationMixin, ContextMixin, BaseModel):
             if not has_todo:
                 break
             # act
-            logger.debug(f"{self._setting}: {self.rc.state=}, will do {self.rc.todo}")
+            logger.debug(f"{self._setting}: self.rc.state={self.rc.state}, will do {self.rc.todo}")
             rsp = await self._act()
             actions_taken += 1
         return rsp  # return output from the last action

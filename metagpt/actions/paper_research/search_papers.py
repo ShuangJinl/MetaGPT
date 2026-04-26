@@ -106,24 +106,32 @@ class SearchAcademicPapers(Action):
     ) -> str:
         """
         执行论文搜索
-        
+
         Args:
             topic: 研究主题/搜索关键词
             sources: 搜索来源列表 ["semantic_scholar", "arxiv"]，默认两者都搜索
             language: 输出语言，"en" 或 "zh"
-            
+
         Returns:
             str: 格式化的搜索结果
         """
         if sources is None:
             sources = ["arxiv"]
-        
-        logger.info(f"Searching for papers on topic: {topic}")
-        
+
+        # 中文自动翻译为英文，避免 arXiv 不支持中文的问题
+        search_topic = topic
+        if self._contains_chinese(topic):
+            english_topic = self._translate_chinese(topic)
+            if english_topic and english_topic != topic:
+                logger.info(f"Translated Chinese topic '{topic}' to '{english_topic}' for search")
+                search_topic = english_topic
+
+        logger.info(f"Searching for papers on topic: {search_topic}")
+
         try:
             # 执行搜索
             result = await self.academic_search.search_multiple(
-                query=topic,
+                query=search_topic,
                 max_results=self.max_results,
                 sources=sources
             )
@@ -248,13 +256,85 @@ class SearchAcademicPapers(Action):
     def get_paper_ids_from_results(self, results: str) -> list[str]:
         """
         从搜索结果中提取论文 ID
-        
+
         Args:
             results: 格式化后的搜索结果
-            
+
         Returns:
             list[str]: 论文 ID 列表
         """
         import re
         paper_ids = re.findall(r'\*\*Paper ID\*\*: (.+)', results)
         return [pid.strip() for pid in paper_ids]
+
+    def _contains_chinese(self, text: str) -> bool:
+        """检测文本是否包含中文字符"""
+        return any('\u4e00' <= char <= '\u9fff' for char in text)
+
+    def _translate_chinese(self, text: str) -> str:
+        """
+        将中文翻译为英文（用于学术搜索）
+        使用常见CS领域术语的硬编码映射表，覆盖大多数情况
+        """
+        term_map = {
+            "强化学习": "reinforcement learning",
+            "机器学习": "machine learning",
+            "深度学习": "deep learning",
+            "自然语言处理": "natural language processing",
+            "计算机视觉": "computer vision",
+            "神经网络": "neural network",
+            "卷积神经网络": "convolutional neural network",
+            "循环神经网络": "recurrent neural network",
+            "注意力机制": "attention mechanism",
+            "Transformer": "transformer",
+            "大语言模型": "large language model",
+            "语言模型": "language model",
+            "目标检测": "object detection",
+            "图像分割": "image segmentation",
+            "生成对抗网络": "generative adversarial network",
+            "无监督学习": "unsupervised learning",
+            "监督学习": "supervised learning",
+            "半监督学习": "semi-supervised learning",
+            "迁移学习": "transfer learning",
+            "元学习": "meta learning",
+            "图神经网络": "graph neural network",
+            "自编码器": "autoencoder",
+            "变分自编码器": "variational autoencoder",
+            "扩散模型": "diffusion model",
+            "知识蒸馏": "knowledge distillation",
+            "对抗样本": "adversarial examples",
+            "联邦学习": "federated learning",
+            "多智能体": "multi-agent",
+            "模仿学习": "imitation learning",
+            "策略梯度": "policy gradient",
+            "Q学习": "Q-learning",
+            "深度Q网络": "deep Q network",
+            "Actor-Critic": "actor-critic",
+            "近端策略优化": "proximal policy optimization",
+            "蒙特卡洛树搜索": "Monte Carlo tree search",
+            "贝叶斯优化": "Bayesian optimization",
+            "神经架构搜索": "neural architecture search",
+            "模型压缩": "model compression",
+            "模型加速": "model acceleration",
+            "边缘计算": "edge computing",
+            "自动驾驶": "autonomous driving",
+            "推荐系统": "recommender system",
+            "信息检索": "information retrieval",
+            "情感分析": "sentiment analysis",
+            "文本分类": "text classification",
+            "机器翻译": "machine translation",
+            "语音识别": "speech recognition",
+            "语音合成": "speech synthesis",
+            "知识图谱": "knowledge graph",
+            "因果推断": "causal inference",
+            "对抗训练": "adversarial training",
+            "对比学习": "contrastive learning",
+            "自监督学习": "self-supervised learning",
+        }
+
+        result = text
+        for cn, en in term_map.items():
+            if cn in result:
+                result = result.replace(cn, en)
+
+        return result

@@ -10,6 +10,7 @@ Academic Search Tools - 学术论文搜索工具
 """
 
 import asyncio
+import os
 import xml.etree.ElementTree as ET
 from typing import Any, ClassVar, Dict, Optional
 from urllib.parse import urlencode
@@ -137,9 +138,9 @@ class AcademicSearchTool(BaseModel):
             root = ET.fromstring(xml_text)
         except Exception:
             return {"feed": {"entry": []}}
-        
+
         ns = {"atom": "http://www.w3.org/2005/Atom"}
-        
+
         entries = []
         for entry in root.findall("atom:entry", ns):
             e = {}
@@ -147,7 +148,7 @@ class AcademicSearchTool(BaseModel):
                 tag = child.tag
                 if "}" in tag:
                     tag = tag.split("}")[-1]
-                
+
                 if tag == "author":
                     name_elem = child.find("atom:name", ns)
                     if name_elem is None:
@@ -173,8 +174,8 @@ class AcademicSearchTool(BaseModel):
                 else:
                     e[tag] = child.text if child.text else ""
             entries.append(e)
-        
-        return {"feed": {"entry": entries}}
+
+        return {"feed": entries}
     
     async def search_semantic_scholar(
         self,
@@ -219,19 +220,51 @@ class AcademicSearchTool(BaseModel):
             headers["x-api-key"] = self.semantic_scholar_api_key
         
         url = f"{self.SEMANTIC_SCHOLAR_API}/paper/search"
-        data = await self._make_request(url, params, headers)
         
         papers = []
-        if isinstance(data, dict) and "data" in data:
-            for item in data["data"]:
-                if not isinstance(item, dict):
-                    continue
-                paper = self._parse_semantic_scholar_paper(item)
-                if paper.citation_count >= min_citation_count:
-                    if year_range is None or year_range[0] <= paper.year <= year_range[1]:
-                        papers.append(paper)
+        total = 0
+        retry_count = 0
+        last_error = None
         
-        total = data.get("total", 0) if isinstance(data, dict) else 0
+        while retry_count <= self.max_retries:
+            data = await self._make_request(url, params, headers)
+            
+            if isinstance(data, dict) and "data" in data:
+                for item in data["data"]:
+                    if not isinstance(item, dict):
+                        continue
+                    paper = self._parse_semantic_scholar_paper(item)
+                    if paper.citation_count >= min_citation_count:
+                        if year_range is None or year_range[0] <= paper.year <= year_range[1]:
+                            papers.append(paper)
+                total = data.get("total", 0)
+                break
+            
+            err_msg = ""
+            if isinstance(data, dict):
+                err_msg = str(data.get("error") or data.get("message") or "")
+            
+            is_rate_limit = (
+                (isinstance(data, dict) and data.get("code") == "429") or
+                (not data and retry_count < self.max_retries)
+            )
+            
+            if is_rate_limit:
+                retry_count += 1
+                if retry_count <= self.max_retries:
+                    wait_time = 2 ** retry_count
+                    logger.warning(f"Semantic Scholar rate limited, retrying in {wait_time}s...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                last_error = err_msg or "Rate limited"
+                break
+            
+            last_error = err_msg or "Unknown error"
+            break
+        
+        if retry_count > self.max_retries and last_error:
+            logger.error(f"Semantic Scholar search failed after {self.max_retries} retries: {last_error}")
+        
         next_offset = offset + len(papers) if offset + len(papers) < total else None
         
         return AcademicSearchResult(
@@ -317,14 +350,14 @@ class AcademicSearchTool(BaseModel):
         
         url = f"{self.ARXIV_API}?{urlencode(params)}"
         data = await self._make_request(url, return_xml=True)
-        
+
         papers = []
         if isinstance(data, dict) and "feed" in data:
-            entries = data.get("feed", {})
-            if isinstance(entries, dict):
-                entries = entries.get("entry", [])
-            if isinstance(entries, list):
-                for entry in entries:
+            entries = data.get("feed", [])
+            if not isinstance(entries, list):
+                entries = [entries] if isinstance(entries, dict) else []
+            for entry in entries:
+                if isinstance(entry, dict):
                     paper = self._parse_arxiv_paper(entry)
                     papers.append(paper)
         
@@ -579,8 +612,6 @@ class AcademicSearchTool(BaseModel):
         )
 
 
-from pydantic import ConfigDict
-
 # 全局单例
 _academic_search_instance: Optional[AcademicSearchTool] = None
 
@@ -589,7 +620,8 @@ def get_academic_search_tool() -> AcademicSearchTool:
     """获取学术搜索工具单例"""
     global _academic_search_instance
     if _academic_search_instance is None:
-        _academic_search_instance = AcademicSearchTool()
+        api_key = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
+        _academic_search_instance = AcademicSearchTool(semantic_scholar_api_key=api_key or None)
     return _academic_search_instance
 
 

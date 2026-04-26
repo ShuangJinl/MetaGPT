@@ -14,6 +14,7 @@ AnalyzeCitations - 分析论文引用关系 Action
 @File    : analyze_citations.py
 """
 
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel, Field, model_validator
@@ -189,7 +190,7 @@ class AnalyzeCitations(Action):
     ) -> CitationMetrics:
         """计算引用指标"""
         # 计算引用速度（每年引用数）
-        years_since_publication = max(1, 2024 - paper.year)
+        years_since_publication = max(1, datetime.now().year - paper.year)
         citation_velocity = paper.citation_count / years_since_publication
         
         # 计算影响力比率
@@ -246,7 +247,7 @@ class AnalyzeCitations(Action):
             f"- **Total Citations**: {metrics.total_citations}",
             f"- **Influential Citations**: {metrics.influential_citations}",
             f"- **Influence Ratio**: {metrics.influence_ratio:.1%}",
-            f"- **Years Since Publication**: {2024 - metrics.year}",
+            f"- **Years Since Publication**: {datetime.now().year - metrics.year}",
             f"- **Citation Velocity**: {metrics.citation_velocity:.1} citations/year",
             "",
             "---",
