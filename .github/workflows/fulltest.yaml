@@ -63,10 +63,14 @@ jobs:
         coverage report -m || true
     - name: Show failed tests and overall summary
       run: |
-        grep -E "FAILED tests|ERROR tests|[0-9]+ passed," unittest.txt
-        failed_count=$(grep -E "FAILED|ERROR" unittest.txt | wc -l)
-        if [[ "$failed_count" -gt 0 ]]; then
-          echo "$failed_count failed lines found! Task failed."
+        if grep -E "FAILED tests|ERROR tests|[0-9]+ passed" unittest.txt; then
+          failed_count=$(grep -E "FAILED tests|ERROR tests" unittest.txt | wc -l)
+          if [[ "$failed_count" -gt 0 ]]; then
+            echo "$failed_count failed lines found! Task failed."
+            exit 1
+          fi
+        else
+          echo "No test results found in unittest.txt"
           exit 1
         fi
     - name: Upload pytest test results
