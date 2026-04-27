@@ -16,7 +16,7 @@ from metagpt.prompts.di.role_zero import (
     SUMMARY_PROBLEM_WHEN_DUPLICATE,
 )
 from metagpt.schema import Message, UserMessage
-from metagpt.utils.common import CodeParser, extract_and_encode_images
+from metagpt.utils.common import extract_and_encode_images
 from metagpt.utils.repair_llm_raw_output import (
     RepairType,
     repair_escape_error,
