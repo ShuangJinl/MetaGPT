@@ -8,10 +8,8 @@ from typing import Optional
 
 import typer
 
-from metagpt.actions.literature_review import LiteratureReviewAction
-from metagpt.config2 import config as metagpt_config
 from metagpt.const import CONFIG_ROOT
-from metagpt.context import Context
+from metagpt.logs import logger
 from metagpt.intent_router import (
     extract_paper_research_topic,
     looks_like_paper_research_topic,
@@ -187,6 +185,10 @@ def _run_literature_review_for_software(idea: str, max_results: int = 5) -> Opti
     """Run optional literature review action and return context text."""
 
     async def run_review():
+        from metagpt.actions.literature_review import LiteratureReviewAction
+        from metagpt.config2 import config as metagpt_config
+        from metagpt.context import Context
+
         action = LiteratureReviewAction()
         action.set_context(Context(config=metagpt_config))
         result = await action.run(topic=idea, max_results=max_results)
@@ -197,6 +199,51 @@ def _run_literature_review_for_software(idea: str, max_results: int = 5) -> Opti
     result = asyncio.run(run_review())
     _ensure_main_event_loop()
     return result
+
+
+def _resolve_intent_with_fallback(
+    idea: str,
+    agent_result: Optional[dict] = None,
+    confidence_threshold: float = 0.65,
+) -> tuple[bool, str]:
+    """Resolve paper/software intent using agent result first, regex as fallback."""
+    if agent_result:
+        mode = str(agent_result.get("collaboration_mode", "")).strip().lower()
+        confidence = float(agent_result.get("confidence") or 0.0)
+        topic = str(agent_result.get("topic") or "").strip()
+        if mode in {"paper", "software"} and confidence >= confidence_threshold:
+            if mode == "paper":
+                return True, topic or extract_paper_research_topic(idea)
+            return False, idea
+
+    # Deterministic fallback to keep behavior stable.
+    is_paper_request = looks_like_paper_research_topic(idea)
+    topic = extract_paper_research_topic(idea) if is_paper_request else idea
+    return is_paper_request, topic
+
+
+def _classify_intent_via_agent(idea: str) -> Optional[dict]:
+    """Use a lightweight Action to classify user intent. Return None on failure."""
+
+    async def run_classify() -> dict:
+        from metagpt.actions.intent_classification import IntentClassificationAction
+        from metagpt.config2 import config as metagpt_config
+        from metagpt.context import Context
+
+        action = IntentClassificationAction()
+        action.set_context(Context(config=metagpt_config))
+        return await action.run(user_input=idea)
+
+    try:
+        if platform.system() == "Windows":
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        result = asyncio.run(run_classify())
+        _ensure_main_event_loop()
+        return result
+    except Exception as exc:
+        logger.warning(f"Intent classification action failed, fallback to regex router: {exc}")
+        _ensure_main_event_loop()
+        return None
 
 
 @app.callback(invoke_without_command=True)
@@ -242,10 +289,17 @@ def startup(
         typer.echo("Missing argument 'IDEA'. Run 'metagpt --help' for more information.")
         raise typer.Exit()
 
-    is_paper_request = looks_like_paper_research_topic(idea)
+    agent_intent = _classify_intent_via_agent(idea)
+    is_paper_request, topic = _resolve_intent_with_fallback(idea=idea, agent_result=agent_intent)
+    if agent_intent:
+        logger.info(
+            "Intent classifier result: "
+            f"mode={agent_intent.get('collaboration_mode')} "
+            f"confidence={float(agent_intent.get('confidence') or 0.0):.2f} "
+            f"topic={agent_intent.get('topic')}"
+        )
 
     normalized_mode = literature_review_mode.strip().lower()
-    topic = extract_paper_research_topic(idea) if is_paper_request else idea
     should_review = (
         is_paper_request
         or normalized_mode == "always"
