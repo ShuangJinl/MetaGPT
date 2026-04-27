@@ -17,7 +17,6 @@ from metagpt.intent_router import (
     looks_like_paper_research_topic,
     should_trigger_literature_review,
 )
-from metagpt.roles.paper_researcher import PaperResearcher
 
 app = typer.Typer(add_completion=False, pretty_exceptions_show_locals=False, invoke_without_command=True)
 
@@ -59,25 +58,18 @@ def _ensure_main_event_loop():
         asyncio.set_event_loop(loop)
 
 
-def _extract_paper_topic_from_idea(idea: str) -> str:
-    """从 idea 中提取论文研究主题"""
-    normalized = idea.lower().strip()
-    import re
-
-    for pattern in (
-        r"topic\s+is\s+(?P<topic>.+)$",
-        r"主题[是为:]*(?P<topic>.+)$",
-        r"关于(?P<topic>.+?)的论文",
-        r"搜索(?P<topic>.+?)的文献",
-    ):
-        match = re.search(pattern, normalized)
-        if match and match.group("topic"):
-            return match.group("topic").strip()
-    if "搜索" in normalized and "文献" in normalized:
-        for kw in ("的文献", "搜索", "文献"):
-            normalized = normalized.replace(kw, "")
-        return normalized.strip()
-    return idea.strip()
+def _build_hire_roles(collaboration_mode: str, team_leader, product_manager, architect, engineer2, data_analyst):
+    """Build role lineup for a collaboration mode within one Team workflow."""
+    if collaboration_mode == "paper":
+        pm = product_manager(
+            instruction=f"{PAPER_MODE_COMMAND_CONSTRAINT}\n\n{PAPER_MODE_PM_INSTRUCTION}",
+            tools=["RoleZero", "Browser", "Editor"],
+        )
+        arch = architect(
+            instruction=f"{PAPER_MODE_COMMAND_CONSTRAINT}\n\n{PAPER_MODE_ARCHITECT_INSTRUCTION}",
+        )
+        return [team_leader(), pm, arch, data_analyst()]
+    return [team_leader(), product_manager(), architect(), engineer2(), data_analyst()]
 
 
 def generate_repo(
@@ -108,16 +100,15 @@ def generate_repo(
 
     if not recover_path:
         company = Team(context=ctx)
-        if collaboration_mode == "paper":
-            _ensure_main_event_loop()
-            research_topic = _extract_paper_topic_from_idea(idea)
-            researcher = PaperResearcher()
-            researcher.set_context(ctx)
-            asyncio.run(researcher.run(topic=research_topic, save_report=True))
-            return researcher.get_research_path()
-        else:
-            hire_roles = [TeamLeader(), ProductManager(), Architect(), Engineer2(), DataAnalyst()]
-            company.hire(hire_roles)
+        hire_roles = _build_hire_roles(
+            collaboration_mode=collaboration_mode,
+            team_leader=TeamLeader,
+            product_manager=ProductManager,
+            architect=Architect,
+            engineer2=Engineer2,
+            data_analyst=DataAnalyst,
+        )
+        company.hire(hire_roles)
     else:
         stg_path = Path(recover_path)
         if not stg_path.exists() or not str(stg_path).endswith("team"):
@@ -180,6 +171,16 @@ def _render_literature_context(review_result: dict) -> str:
         if paper.get("abstract"):
             lines.append(f"     Abstract: {paper['abstract']}")
     return "\n".join(lines)
+
+
+def _save_literature_context_to_fixed_file(context_text: str) -> Optional[Path]:
+    """Persist pre-review context to a deterministic file for easy retrieval."""
+    if not context_text:
+        return None
+    output_path = Path.cwd() / "workspace" / "paper_search_result.md"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(context_text, encoding="utf-8")
+    return output_path
 
 
 def _run_literature_review_for_software(idea: str, max_results: int = 5) -> Optional[str]:
@@ -255,6 +256,9 @@ def startup(
         typer.echo("\nRunning optional literature pre-review for software collaboration...")
         literature_context = _run_literature_review_for_software(topic, max_results=literature_top_k)
         typer.echo("Literature pre-review context injected into ProductManager/Architect inputs.\n")
+        saved_path = _save_literature_context_to_fixed_file(literature_context or "")
+        if saved_path:
+            typer.echo(f"Pre-review paper result saved to: {saved_path}")
 
     collaboration_mode = "paper" if is_paper_request else "software"
     effective_idea = idea
