@@ -9,12 +9,12 @@ from typing import Optional
 import typer
 
 from metagpt.const import CONFIG_ROOT
-from metagpt.logs import logger
 from metagpt.intent_router import (
     extract_paper_research_topic,
     looks_like_paper_research_topic,
     should_trigger_literature_review,
 )
+from metagpt.logs import logger
 
 app = typer.Typer(add_completion=False, pretty_exceptions_show_locals=False, invoke_without_command=True)
 
@@ -89,7 +89,13 @@ def generate_repo(
     """Run the startup logic. Can be called from CLI or other Python scripts."""
     from metagpt.config2 import config
     from metagpt.context import Context
-    from metagpt.roles import Architect, DataAnalyst, Engineer2, ProductManager, TeamLeader
+    from metagpt.roles import (
+        Architect,
+        DataAnalyst,
+        Engineer2,
+        ProductManager,
+        TeamLeader,
+    )
     from metagpt.team import Team
 
     config.update_via_cli(project_path, project_name, inc, reqa_file, max_auto_summarize_code)
